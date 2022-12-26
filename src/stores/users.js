@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia'
 import {supabase} from "@/supabase";
 
-export const useUsersStore = defineStore('todos', {
+export const useUsersStore = defineStore('users', {
     state: () => ({
         session: null,
         userdata: null
@@ -13,6 +13,12 @@ export const useUsersStore = defineStore('todos', {
         isUserdataSet(state) {
             return state.userdata !== null
         },
+        userId(state) {
+            if (state.session !== null) {
+                return state.session.user.id
+            }
+            return null
+        }
     },
     actions: {
         async initializeAuth() {
@@ -29,11 +35,12 @@ export const useUsersStore = defineStore('todos', {
             })
         },
         async fetchUserData() {
+            console.log(this.userId)
             if (this.session !== null) {
                 let {data, error} = await supabase
                     .from('users')
                     .select()
-                    .eq('auth_id', this.session.user.id)
+                    .eq('auth_id', this.userId)
                 console.log(data, error)
                 if (data.length === 0) {
                     this.userdata = null
@@ -51,7 +58,7 @@ export const useUsersStore = defineStore('todos', {
                         last_name: last_name,
                         first_name: first_name,
                         middle_name: middle_name,
-                        auth_id: this.session.user.id
+                        auth_id: this.userId
                     },
                 ])
             console.log(data, error)
