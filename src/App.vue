@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import AuthModal from "@/pages/AuthModal"
+import AuthModal from "@/components/AuthModal"
 import HelloWorld from "@/components/HelloWorld"
 import {useUsersStore} from "@/stores/users";
 import {onMounted} from 'vue'

@@ -1,13 +1,13 @@
 <template>
   <it-modal v-model="openAuthModal" :closable-mask="false">
     <template #body>
-      <it-tabs style="flex: 1">
+      <it-tabs style="flex: 1" >
         <it-tab title="Sign In">
           <div>
             <h2>Sign in</h2>
             <it-input labelTop="Email" prefix-icon="email" type="email" v-model="email"
                       placeholder="yourmail@gmail.com"/>
-            <it-input labelTop="Password" prefix-icon="lock" type="password"/>
+            <it-input labelTop="Password" prefix-icon="lock" type="password" v-model="password"/>
             <it-button
                 block
                 size="big"
@@ -33,7 +33,6 @@
           </div>
         </it-tab>
       </it-tabs>
-
     </template>
   </it-modal>
 </template>
@@ -52,22 +51,6 @@ const username = ref('')
 const password = ref('')
 const repeatePassword = ref('')
 
-// const handleLogin = async () => {
-//   try {
-//     loading.value = true
-//     const { error } = await supabase.auth.signInWithOtp({
-//       email: email.value,
-//     })
-//     if (error) throw error
-//     alert('Check your email for the login link!')
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       alert(error.message)
-//     }
-//   } finally {
-//     loading.value = false
-//   }
-// }
 </script>
 
 <style scoped>
