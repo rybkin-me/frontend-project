@@ -4,23 +4,15 @@ import {supabase} from "@/supabase";
 export const useUsersStore = defineStore('todos', {
     state: () => ({
         session: null,
+        userdata: null
     }),
     getters: {
         isLoggedIn(state) {
             return state.session !== null
         },
-        // /**
-        //  * @returns {{ text: string, id: number, isFinished: boolean }[]}
-        //  */
-        // filteredTodos(state) {
-        //     if (this.filter === 'finished') {
-        //         // call other getters with autocompletion ✨
-        //         return this.finishedTodos
-        //     } else if (this.filter === 'unfinished') {
-        //         return this.unfinishedTodos
-        //     }
-        //     return this.todos
-        // },
+        isUserdataSet(state) {
+            return state.userdata !== null
+        },
     },
     actions: {
         async initializeAuth() {
@@ -30,9 +22,41 @@ export const useUsersStore = defineStore('todos', {
                 console.log(error)
             }
             this.session = data.session
-            supabase.auth.onAuthStateChange((_, _session) => {
+            await this.fetchUserData()
+            supabase.auth.onAuthStateChange(async (_, _session) => {
                 this.session = _session
+                await this.fetchUserData()
             })
+        },
+        async fetchUserData() {
+            if (this.session !== null) {
+                let {data, error} = await supabase
+                    .from('users')
+                    .select()
+                    .eq('auth_id', this.session.user.id)
+                console.log(data, error)
+                if (data.length === 0) {
+                    this.userdata = null
+                } else {
+                    this.userdata = data[0]
+                }
+            }
+            console.log(this.userdata)
+        },
+        async updateUserdata(last_name, first_name, middle_name) {
+            const {data, error} = await supabase
+                .from('users')
+                .insert([
+                    {
+                        last_name: last_name,
+                        first_name: first_name,
+                        middle_name: middle_name,
+                        auth_id: this.session.user.id
+                    },
+                ])
+            console.log(data, error)
+            await this.fetchUserData()
+
         },
         async signIn(email, password) {
             const {data, error} = await supabase.auth.signInWithPassword({

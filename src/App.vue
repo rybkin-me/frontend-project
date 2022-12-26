@@ -1,6 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <AuthModal :open-auth-modal="!userStore.isLoggedIn"/>
+   <UserdataModal :open-userdata-modal="!userStore.isUserdataSet" v-if="userStore.isLoggedIn"/>
   <HelloWorld msg="Welcome to Your Vue.js App"/>
   <it-button type="success" @click="userStore.signOut()">Log out</it-button>
 </template>
@@ -10,6 +11,7 @@ import AuthModal from "@/components/AuthModal"
 import HelloWorld from "@/components/HelloWorld"
 import {useUsersStore} from "@/stores/users";
 import {onMounted} from 'vue'
+import UserdataModal from "@/components/UserdataModal";
 
 const userStore = useUsersStore()
 
