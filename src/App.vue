@@ -1,17 +1,21 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
+  <AuthModal :open-auth-modal="!userStore.isLoggedIn"/>
   <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <it-button type="success" @click="userStore.signOut()">Log out</it-button>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import AuthModal from "@/pages/AuthModal"
+import HelloWorld from "@/components/HelloWorld"
+import {useUsersStore} from "@/stores/users";
+import {onMounted} from 'vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const userStore = useUsersStore()
+
+onMounted(() => {
+  userStore.initializeAuth()
+})
 </script>
 
 <style>
