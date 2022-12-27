@@ -1,5 +1,5 @@
-<template>
-<div>groups list</div>
+ <template>
+<div>HomePage</div>
 </template>
 
 <script setup>
