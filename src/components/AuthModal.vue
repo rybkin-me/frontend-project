@@ -1,15 +1,15 @@
 <template>
   <el-dialog
       v-model="openAuthModal"
-      title="Войдите"
+      :title="$t('auth.signin')"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :show-close="false"
   >
     <el-tabs style="flex: 1" v-model="activeTabName">
-      <el-tab-pane label="Sign In" name="signIn">
+      <el-tab-pane :label="$t('auth.signin')" name="signIn">
         <div>
-          <h2>Sign in</h2>
+          <h2>{{ $t('auth.signin') }}</h2>
           <el-input label="Email" type="email" v-model="email"
                     placeholder="yourmail@gmail.com"/>
           <el-input label="Password" show-password type="password" v-model="password"/>
@@ -17,13 +17,12 @@
               block
               type="primary"
               @click="userStore.signIn(email, password)"
-          >Sign up
-          </el-button>
+          >{{ $t('auth.signin') }}</el-button>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="Sign Up" name="signUp">
+      <el-tab-pane :label="$t('auth.signup')" name="signUp">
         <div style="display:flex; flex-direction: column;">
-          <h2>Sign up</h2>
+          <h2>{{ $t('auth.signup') }}</h2>
           <el-input labelTop="Email" type="email" name="email" v-model="email"/>
           <el-input labelTop="Пароль" show-password type="password" v-model="password"/>
           <el-input labelTop="Повторите пароль" show-password type="password" v-model="repeatePassword"/>
@@ -31,7 +30,7 @@
               block
               type="primary"
               @click="userStore.signUp(email, password, username)">
-            Sign up
+            {{ $t('auth.signup') }}
           </el-button>
         </div>
       </el-tab-pane>
