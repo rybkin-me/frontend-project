@@ -14,8 +14,9 @@ export const useUsersStore = defineStore('users', {
             return state.userdata !== null
         },
         userId(state) {
-            if (state.session !== null) {
-                return state.session.user.id
+            if (this.isUserdataSet) {
+                console.log(state.userdata.id)
+                return state.userdata.id
             }
             return null
         }
@@ -40,8 +41,8 @@ export const useUsersStore = defineStore('users', {
                 let {data, error} = await supabase
                     .from('users')
                     .select()
-                    .eq('auth_id', this.userId)
-                console.log(data, error)
+                    .eq('auth_id', this.session.user.id)
+                console.log('userdata: ', data, error)
                 if (data.length === 0) {
                     this.userdata = null
                 } else {
