@@ -1,21 +1,24 @@
 <template>
-  <it-modal v-model="openUserdataModal" :closable-mask="false">
-    <template #body>
-          <div>
-            <h2>Заполните данные о себе</h2>
-            <it-input labelTop="Фамилия" prefix-icon="email" type="email" v-model="last_name"/>
-            <it-input labelTop="Имя" prefix-icon="email" type="email" v-model="first_name"/>
-            <it-input labelTop="Отчество" prefix-icon="email" type="email" v-model="middle_name"/>
-            <it-button
-                block
-                size="big"
-                type="primary"
-                @click="userStore.updateUserdata(last_name, first_name, middle_name)"
-            >Sign up
-            </it-button>
-          </div>
-    </template>
-  </it-modal>
+  <el-dialog
+      v-model="openUserdataModal"
+      title="Заполните данные о себе"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false"
+  >
+    <div>
+      <h2>Заполните данные о себе</h2>
+      <el-input labelTop="Фамилия" type="email" v-model="last_name"/>
+      <el-input labelTop="Имя" type="email" v-model="first_name"/>
+      <el-input labelTop="Отчество" type="email" v-model="middle_name"/>
+      <el-button
+          block
+          type="primary"
+          @click="userStore.updateUserdata(last_name, first_name, middle_name)"
+      >Sign up
+      </el-button>
+    </div>
+  </el-dialog>
 </template>
 
 <script setup>

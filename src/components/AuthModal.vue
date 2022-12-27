@@ -1,40 +1,42 @@
 <template>
-  <it-modal v-model="openAuthModal" :closable-mask="false">
-    <template #body>
-      <it-tabs style="flex: 1" >
-        <it-tab title="Sign In">
-          <div>
-            <h2>Sign in</h2>
-            <it-input labelTop="Email" prefix-icon="email" type="email" v-model="email"
-                      placeholder="yourmail@gmail.com"/>
-            <it-input labelTop="Password" prefix-icon="lock" type="password" v-model="password"/>
-            <it-button
-                block
-                size="big"
-                type="primary"
-                @click="userStore.signIn(email, password)"
-            >Sign up
-            </it-button>
-          </div>
-        </it-tab>
-        <it-tab title="Sign Up">
-          <div style="display:flex; flex-direction: column;">
-            <h2>Sign up</h2>
-            <it-input labelTop="Email" prefix-icon="email" type="email" name="email" v-model="email"/>
-            <it-input labelTop="Пароль" prefix-icon="lock" type="password" v-model="password"/>
-            <it-input labelTop="Повторите пароль" prefix-icon="lock" type="password" v-model="repeatePassword"/>
-            <it-button
-                block
-                size="big"
-                type="primary"
-                @click="userStore.signUp(email, password, username)">
-              Sign up
-            </it-button>
-          </div>
-        </it-tab>
-      </it-tabs>
-    </template>
-  </it-modal>
+  <el-dialog
+      v-model="openAuthModal"
+      title="Войдите"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false"
+  >
+    <el-tabs style="flex: 1" v-model="activeTabName">
+      <el-tab-pane label="Sign In" name="signIn">
+        <div>
+          <h2>Sign in</h2>
+          <el-input label="Email" type="email" v-model="email"
+                    placeholder="yourmail@gmail.com"/>
+          <el-input label="Password" show-password type="password" v-model="password"/>
+          <el-button
+              block
+              type="primary"
+              @click="userStore.signIn(email, password)"
+          >Sign up
+          </el-button>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Sign Up" name="signUp">
+        <div style="display:flex; flex-direction: column;">
+          <h2>Sign up</h2>
+          <el-input labelTop="Email" type="email" name="email" v-model="email"/>
+          <el-input labelTop="Пароль" show-password type="password" v-model="password"/>
+          <el-input labelTop="Повторите пароль" show-password type="password" v-model="repeatePassword"/>
+          <el-button
+              block
+              type="primary"
+              @click="userStore.signUp(email, password, username)">
+            Sign up
+          </el-button>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+  </el-dialog>
 </template>
 
 <script setup>
@@ -45,6 +47,8 @@ const props = defineProps(['openAuthModal'])
 const {openAuthModal} = toRefs(props)
 
 const userStore = useUsersStore()
+
+const activeTabName = ref('signIn')
 
 const email = ref('')
 const username = ref('')

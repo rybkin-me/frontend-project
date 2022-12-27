@@ -1,9 +1,9 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <AuthModal :open-auth-modal="!userStore.isLoggedIn"/>
-   <UserdataModal :open-userdata-modal="!userStore.isUserdataSet" v-if="userStore.isLoggedIn"/>
+  <UserdataModal :open-userdata-modal="!userStore.isUserdataSet" v-if="userStore.isLoggedIn"/>
   <HelloWorld msg="Welcome to Your Vue.js App"/>
-  <it-button type="success" @click="userStore.signOut()">Log out</it-button>
+  <el-button type="success" @click="userStore.signOut()">Log out</el-button>
 </template>
 
 <script setup>
