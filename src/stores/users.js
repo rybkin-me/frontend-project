@@ -24,7 +24,7 @@ export const useUsersStore = defineStore('users', {
     actions: {
         async initializeAuth() {
             const {data, error} = await supabase.auth.getSession()
-            console.log(data, error)
+            console.log('session: ', data, error)
             if (error) {
                 console.log(error)
             }
@@ -36,7 +36,6 @@ export const useUsersStore = defineStore('users', {
             })
         },
         async fetchUserData() {
-            console.log(this.userId)
             if (this.session !== null) {
                 let {data, error} = await supabase
                     .from('users')
@@ -49,7 +48,6 @@ export const useUsersStore = defineStore('users', {
                     this.userdata = data[0]
                 }
             }
-            console.log(this.userdata)
         },
         async updateUserdata(last_name, first_name, middle_name) {
             const {data, error} = await supabase
