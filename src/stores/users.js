@@ -32,7 +32,6 @@ export const useUsersStore = defineStore('users', {
             await this.fetchUserData()
             supabase.auth.onAuthStateChange(async (_, _session) => {
                 this.session = _session
-                await this.fetchUserData()
             })
         },
         async fetchUserData() {
