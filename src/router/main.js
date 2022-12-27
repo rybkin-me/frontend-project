@@ -1,25 +1,21 @@
 import {createRouter, createWebHashHistory} from "vue-router";
-// import {useUsersStore} from "@/stores/users";
+import GroupsList from "@/pages/groups/GroupsList"
+import TasksList from "@/pages/tasks/TasksList"
+import SubjectsList from "@/pages/subjects/SubjectsList"
 
 const routes = [
-//     {
-//         path: '/',
-//         component: PostsLayout,
-//         children: [
-//             {
-//                 path: 'new',
-//                 component: PostsNew,
-//                 // only authenticated users can create posts
-//                 meta: { requiresAuth: true }
-//             },
-//             {
-//                 path: ':id',
-//                 component: PostsDetail,
-//                 // anybody can read a post
-//                 meta: { requiresAuth: false }
-//             }
-//         ]
-//     }
+    {
+        path: '/groups',
+        component: GroupsList,
+    },
+    {
+        path: '/subjects',
+        component: SubjectsList
+    },
+    {
+        path: '/tasks',
+        component: TasksList
+    }
 ]
 
 
