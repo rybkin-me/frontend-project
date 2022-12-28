@@ -27,7 +27,7 @@ const userStore = useUsersStore()
 const loading = ref(true)
 
 onMounted(() => {
-  userStore.initializeAuth().then(()=>{
+  userStore.initializeAuth().then(() => {
     loading.value = false
   })
 

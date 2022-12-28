@@ -1,7 +1,7 @@
 <template>
   <el-form
-      v-loading="loading"
       ref="formDataRef"
+      v-loading="loading"
       :hide-required-asterisk="true"
       :model="formData"
       :rules="rules"
@@ -42,7 +42,7 @@ const userStore = useUsersStore()
 
 const loading = ref(false)
 
-const formDataRef=ref()
+const formDataRef = ref()
 const formData = reactive({
   email: '',
   fio: '',
@@ -92,13 +92,13 @@ const rules = reactive({
     {required: true, message: computed(() => t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
   ],
   password: [
-    {required: true, message: computed(()=>t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
-    {min: 8, message: computed(()=>t('messages.formValidation.minLength', [8])), trigger: 'blur'},
+    {required: true, message: computed(() => t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
+    {min: 8, message: computed(() => t('messages.formValidation.minLength', [8])), trigger: 'blur'},
     // { validator: validatePass, trigger: 'blur' },
   ],
   repeatPassword: [
-    {required: true, message: computed(()=>t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
-    {min: 8, message: computed(()=>t('messages.formValidation.minLength', [8])), trigger: 'blur'},
+    {required: true, message: computed(() => t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
+    {min: 8, message: computed(() => t('messages.formValidation.minLength', [8])), trigger: 'blur'},
     // { validator: validatePass2, trigger: 'blur' }
   ],
 })

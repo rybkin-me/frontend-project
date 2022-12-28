@@ -10,7 +10,7 @@ export const useGroupsStore = defineStore('groups', {
     getters: {},
     actions: {
         async fetchMyGroups(
-            groupStatus=GROUP_STATUS.STUDENT
+            groupStatus = GROUP_STATUS.STUDENT
         ) {
             const userStore = useUsersStore()
             let {data, error} = await supabase

@@ -1,16 +1,16 @@
 <template>
   <el-form
-      :rules="rules"
+      v-loading="loading"
       :model="formData"
+      :rules="rules"
       label-position="top"
       label-width="auto"
-      v-loading="loading"
   >
     <el-form-item label="Email" prop="email">
-      <el-input name="email" type="email" v-model="formData.email"/>
+      <el-input v-model="formData.email" name="email" type="email"/>
     </el-form-item>
     <el-form-item :label="t('auth.password')" prop="password">
-      <el-input show-password type="password" v-model="formData.password"/>
+      <el-input v-model="formData.password" show-password type="password"/>
     </el-form-item>
     <el-form-item>
       <el-button
@@ -28,6 +28,7 @@
 import {computed, reactive, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useUsersStore} from "@/stores/users";
+
 const {t} = useI18n()
 const userStore = useUsersStore()
 
@@ -66,11 +67,11 @@ const formData = reactive({
 // }
 const rules = reactive({
   email: [
-    {required: true, message: computed(()=>t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
-    {type: 'email', message: computed(()=>t('messages.formValidation.wrongTypeEmail')), trigger: 'blur'},
+    {required: true, message: computed(() => t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
+    {type: 'email', message: computed(() => t('messages.formValidation.wrongTypeEmail')), trigger: 'blur'},
   ],
   password: [
-    {required: true, message: computed(()=>t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
+    {required: true, message: computed(() => t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
     // { validator: validatePass, trigger: 'blur' },
   ],
 })

@@ -23,11 +23,11 @@
 
     <div class="flex-grow"/>
 
-<!--    <el-menu-item index="collapse-sidebar" @click="isCollapsed = !isCollapsed" >-->
-<!--      <el-icon>-->
-<!--        <box-icon :name="isCollapsed ? 'chevron-right' : 'chevron-left'"/>-->
-<!--      </el-icon>-->
-<!--    </el-menu-item>-->
+    <!--    <el-menu-item index="collapse-sidebar" @click="isCollapsed = !isCollapsed" >-->
+    <!--      <el-icon>-->
+    <!--        <box-icon :name="isCollapsed ? 'chevron-right' : 'chevron-left'"/>-->
+    <!--      </el-icon>-->
+    <!--    </el-menu-item>-->
   </el-menu>
 </template>
 
