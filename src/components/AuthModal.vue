@@ -6,10 +6,11 @@
       :close-on-press-escape="false"
       :show-close="false"
       align-center
-      class="modal"
+      class="auth-modal"
+      width="40%"
   >
     <template #header="{ titleId, titleClass }">
-      <div class="modal-header">
+      <div class="auth-modal-header">
         <h4 :id="titleId" :class="titleClass">{{ t('auth.authorization') }}</h4>
         <el-switch
             v-model="$i18n.locale"
@@ -21,7 +22,7 @@
         />
       </div>
     </template>
-    <el-tabs v-model="activeTabName" class="modal-body">
+    <el-tabs v-model="activeTabName" class="auth-modal-body">
       <el-tab-pane :label="t('auth.signIn')" name="signIn">
         <div>
           <sign-in-form/>
@@ -51,24 +52,24 @@ const activeTabName = ref('signIn')
 </script>
 
 <style>
-.modal-header {
+.auth-modal-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px 0;
+  padding: 30px 30px 0;
 }
 
-.modal-header h4 {
+.auth-modal-header h4 {
   margin: 0;
 }
 
-.modal-body {
+.auth-modal-body {
   flex: 1;
-  padding: 0 20px 10px;
+  padding: 0 30px 10px;
 }
 
-.modal {
-  --el-dialog-padding-primary: -10px;
+.auth-modal {
+  --el-dialog-padding-primary: -10px !important;
 }
 </style>
