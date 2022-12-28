@@ -37,6 +37,10 @@ const loading = ref(false)
 const signIn = async () => {
   loading.value = true
   await userStore.signIn(formData)
+  formData.value = reactive({
+    email: '',
+    password: '',
+  })
   loading.value = false
 }
 

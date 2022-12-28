@@ -32,12 +32,17 @@ export const useUsersStore = defineStore('users', {
             }
             this.session = data.session
             await this.fetchUserData()
-            supabase.auth.onAuthStateChange(async (_, _session) => {
+            supabase.auth.onAuthStateChange(async (event, _session) => {
                 this.session = _session
+                if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+                    console.log(event)
+                    await this.fetchUserData()
+                }
             })
         },
         async fetchUserData() {
             if (this.session !== null) {
+                console.log(this.session)
                 let {data, error} = await supabase
                     .from('users')
                     .select()
@@ -83,6 +88,8 @@ export const useUsersStore = defineStore('users', {
         },
         async signOut() {
             const {error} = await supabase.auth.signOut()
+            this.userdata = null
+            this.session = null
             console.log(error)
         }
     },

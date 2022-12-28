@@ -56,6 +56,12 @@ const signUp = async () => {
     if (valid) {
       loading.value = true
       userStore.signUp(formData)
+      formData.value = reactive({
+        email: '',
+        fio: '',
+        password: '',
+        repeatPassword: '',
+      })
       loading.value = false
     } else {
       console.log('error submit!', fields)
