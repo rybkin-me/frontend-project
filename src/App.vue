@@ -1,14 +1,12 @@
 <template>
-
-  <el-container class="wrapper">
-      <el-header>
-        <MainHeader/>
-      </el-header>
-      <el-main>
-        <router-view/>
-      </el-main>
-    <AuthModal :open-auth-modal="!userStore.isLoggedIn"/>
-    <UserdataModal :open-userdata-modal="!userStore.isUserdataSet" v-if="userStore.isLoggedIn"/>
+  <el-container v-loading="loading" class="wrapper">
+    <el-header>
+      <MainHeader/>
+    </el-header>
+    <el-main>
+      <router-view/>
+    </el-main>
+    <AuthModal :open-auth-modal="!userStore.isLoggedIn && !loading"/>
   </el-container>
 </template>
 
@@ -16,13 +14,17 @@
 import AuthModal from "@/components/AuthModal"
 import MainHeader from "@/components/MainHeader"
 import {useUsersStore} from "@/stores/users";
-import {onMounted} from 'vue'
-import UserdataModal from "@/components/UserdataModal";
+import {onMounted, ref} from 'vue'
 
 const userStore = useUsersStore()
 
+const loading = ref(true)
+
 onMounted(() => {
-  userStore.initializeAuth()
+  userStore.initializeAuth().then(()=>{
+    loading.value = false
+  })
+
 })
 </script>
 

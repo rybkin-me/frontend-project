@@ -14,9 +14,22 @@ export const i18n = createI18n({
                 home: 'Home'
             },
             auth: {
-                signin: 'Sign In',
-                signup: 'Sign Up',
-                signout: 'Log out'
+                signIn: 'Sign in',
+                signInPrompt: 'Sign in',
+                signUp: 'Sign up',
+                signUpPrompt: 'Sign up',
+                signOutPrompt: 'Log out',
+                authorization: 'Authorization',
+                password: 'Password',
+                fio: 'Full name',
+                repeatPassword: 'Repeat password'
+            },
+            messages: {
+                formValidation: {
+                    requiredNotFilled: 'This field is required',
+                    minLength: 'Minimum length is {0}',
+                    wrongTypeEmail: 'Please enter email',
+                }
             }
         },
         ru: {
@@ -28,9 +41,22 @@ export const i18n = createI18n({
                 home: 'Главная'
             },
             auth: {
-                signin: 'Войти',
-                signup: 'Зарегистрироваться',
-                signout: 'Выйти'
+                signIn: 'Вход',
+                signInPrompt: 'Войти',
+                signUp: 'Регистрация',
+                signUpPrompt: 'Зарегистрироваться',
+                signOutPrompt: 'Выйти',
+                authorization: 'Авторизация',
+                password: 'Пароль',
+                fio: 'ФИО',
+                repeatPassword: 'Повторите пароль'
+            },
+            messages: {
+                formValidation: {
+                    requiredNotFilled: 'Это обязательное поле',
+                    minLength: 'Минимальная длина – {0}',
+                    wrongTypeEmail: 'Нужно ввести email',
+                }
             }
         }
     }

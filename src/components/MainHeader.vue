@@ -24,7 +24,7 @@
       <template #title>{{t('menu.account')}}</template>
 
       <el-menu-item index="account-signout" @click="userStore.signOut()">
-        {{ $t('auth.signout') }}
+        {{ t('auth.signOutPrompt') }}
       </el-menu-item>
     </el-sub-menu>
 
@@ -34,9 +34,12 @@
 <script setup>
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
+import {useUsersStore} from "@/stores/users";
 
 const {t} = useI18n()
 const route = useRoute()
+const userStore = useUsersStore()
+
 
 const routes = [
   {

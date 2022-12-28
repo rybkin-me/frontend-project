@@ -48,34 +48,34 @@ export const useUsersStore = defineStore('users', {
                 }
             }
         },
-        async updateUserdata(last_name, first_name, middle_name) {
-            const {data, error} = await supabase
-                .from('users')
-                .insert([
-                    {
-                        last_name: last_name,
-                        first_name: first_name,
-                        middle_name: middle_name,
-                        auth_id: this.userId
-                    },
-                ])
-            console.log(data, error)
-            await this.fetchUserData()
-
-        },
-        async signIn(email, password) {
+        async signIn(formData) {
+            const {email, password} = formData
+            console.log(email, password)
             const {data, error} = await supabase.auth.signInWithPassword({
                 email: email,
                 password: password
             })
             console.log(data, error)
         },
-        async signUp(email, password) {
-            const {data, error} = await supabase.auth.signUp({
+        async signUp(formData) {
+            const {email, password, fio} = formData
+            console.log(email, password, fio)
+            const {data: authData, error: authError} = await supabase.auth.signUp({
                 email: email,
                 password: password
             })
-            console.log(data, error)
+            console.log(authData, authError)
+            if (authError === null) {
+                const {data: userData, error: userError} = await supabase
+                    .from('users')
+                    .insert([
+                        {
+                            fio: fio,
+                            auth_id: authData.user.id
+                        },
+                    ])
+                console.log(userData, userError)
+            }
         },
         async signOut() {
             const {error} = await supabase.auth.signOut()
