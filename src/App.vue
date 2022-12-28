@@ -1,12 +1,17 @@
 <template>
   <el-container v-loading="loading" class="wrapper">
     <el-header>
-      <MainHeader/>
+      <main-header/>
     </el-header>
-    <el-main>
-      <router-view/>
-    </el-main>
-    <AuthModal :open-auth-modal="!userStore.isLoggedIn && !loading"/>
+    <el-container>
+      <el-aside width="200px">
+        <main-sidebar/>
+      </el-aside>
+      <el-main>
+        <router-view/>
+      </el-main>
+    </el-container>
+    <auth-modal :open-auth-modal="!userStore.isLoggedIn && !loading"/>
   </el-container>
 </template>
 
@@ -15,6 +20,7 @@ import AuthModal from "@/components/AuthModal"
 import MainHeader from "@/components/MainHeader"
 import {useUsersStore} from "@/stores/users";
 import {onMounted, ref} from 'vue'
+import MainSidebar from "@/components/MainSidebar";
 
 const userStore = useUsersStore()
 

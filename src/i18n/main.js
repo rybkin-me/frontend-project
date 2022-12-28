@@ -6,12 +6,12 @@ export const i18n = createI18n({
     legacy: false,
     messages: {
         en: {
-            menu: {
+            sidebar: {
                 groups: 'Groups',
                 subjects: 'Subjects',
                 tasks: 'Tasks',
-                account: 'Account',
-                home: 'Home'
+                home: 'Home',
+                collapse: 'Collapse'
             },
             auth: {
                 signIn: 'Sign in',
@@ -22,6 +22,7 @@ export const i18n = createI18n({
                 authorization: 'Authorization',
                 password: 'Password',
                 fio: 'Full name',
+                account: 'Account',
                 repeatPassword: 'Repeat password'
             },
             messages: {
@@ -33,12 +34,12 @@ export const i18n = createI18n({
             }
         },
         ru: {
-            menu: {
+            sidebar: {
                 groups: 'Группы',
                 subjects: 'Предметы',
                 tasks: 'Задания',
-                account: 'Аккаунт',
-                home: 'Главная'
+                home: 'Главная',
+                collapse: 'Скрыть'
             },
             auth: {
                 signIn: 'Вход',
@@ -49,6 +50,7 @@ export const i18n = createI18n({
                 authorization: 'Авторизация',
                 password: 'Пароль',
                 fio: 'ФИО',
+                account: 'Аккаунт',
                 repeatPassword: 'Повторите пароль'
             },
             messages: {
