@@ -16,7 +16,9 @@
       <el-icon>
         <box-icon :name="route.icon"/>
       </el-icon>
-      <template #title>{{ route.name }}</template>
+      <template #title>
+        {{ t(route.name) }}
+      </template>
     </el-menu-item>
 
     <div class="flex-grow"/>
@@ -41,17 +43,17 @@ const isCollapsed = ref(false)
 
 const routes = [
   {
-    name: t('sidebar.home'),
+    name: 'sidebar.home',
     icon: 'home',
     path: '/',
   },
   {
-    name: t('sidebar.subjects'),
+    name: 'sidebar.subjects',
     icon: 'spreadsheet',
     path: '/subjects',
   },
   {
-    name: t('sidebar.tasks'),
+    name: 'sidebar.tasks',
     icon: 'task',
     path: '/tasks',
   },

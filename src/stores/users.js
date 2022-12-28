@@ -1,5 +1,7 @@
 import {defineStore} from 'pinia'
 import {supabase} from "@/supabase";
+import {i18n} from "@/i18n/main";
+import {flipObject, LOCALES} from "@/helpers";
 
 export const useUsersStore = defineStore('users', {
     state: () => ({
@@ -45,6 +47,7 @@ export const useUsersStore = defineStore('users', {
                     this.userdata = null
                 } else {
                     this.userdata = data[0]
+                    i18n.global.locale.value = LOCALES[this.userdata.locale]
                 }
             }
         },
@@ -71,7 +74,8 @@ export const useUsersStore = defineStore('users', {
                     .insert([
                         {
                             fio: fio,
-                            auth_id: authData.user.id
+                            auth_id: authData.user.id,
+                            locale: flipObject(LOCALES)[i18n.global.locale.value]
                         },
                     ])
                 console.log(userData, userError)

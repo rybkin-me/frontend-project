@@ -25,7 +25,7 @@
 
 <script setup>
 
-import {reactive, ref} from "vue";
+import {computed, reactive, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useUsersStore} from "@/stores/users";
 const {t} = useI18n()
@@ -66,11 +66,11 @@ const formData = reactive({
 // }
 const rules = reactive({
   email: [
-    {required: true, message: t('messages.formValidation.requiredNotFilled'), trigger: 'blur'},
-    {type: 'email', message: t('messages.formValidation.wrongTypeEmail'), trigger: 'blur'},
+    {required: true, message: computed(()=>t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
+    {type: 'email', message: computed(()=>t('messages.formValidation.wrongTypeEmail')), trigger: 'blur'},
   ],
   password: [
-    {required: true, message: t('messages.formValidation.requiredNotFilled'), trigger: 'blur'},
+    {required: true, message: computed(()=>t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
     // { validator: validatePass, trigger: 'blur' },
   ],
 })

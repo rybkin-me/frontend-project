@@ -33,7 +33,7 @@
 
 <script setup>
 
-import {reactive, ref} from "vue";
+import {computed, reactive, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useUsersStore} from "@/stores/users";
 
@@ -85,20 +85,20 @@ const signUp = async () => {
 // }
 const rules = reactive({
   email: [
-    {required: true, message: t('messages.formValidation.requiredNotFilled'), trigger: 'blur'},
-    {type: 'email', message: t('messages.formValidation.wrongTypeEmail'), trigger: 'blur'},
+    {required: true, message: computed(() => t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
+    {type: 'email', message: computed(() => t('messages.formValidation.wrongTypeEmail')), trigger: 'blur'},
   ],
   fio: [
-    {required: true, message: t('messages.formValidation.requiredNotFilled'), trigger: 'blur'},
+    {required: true, message: computed(() => t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
   ],
   password: [
-    {required: true, message: t('messages.formValidation.requiredNotFilled'), trigger: 'blur'},
-    {min: 8, message: t('messages.formValidation.minLength', [8]), trigger: 'blur'},
+    {required: true, message: computed(()=>t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
+    {min: 8, message: computed(()=>t('messages.formValidation.minLength', [8])), trigger: 'blur'},
     // { validator: validatePass, trigger: 'blur' },
   ],
   repeatPassword: [
-    {required: true, message: t('messages.formValidation.requiredNotFilled'), trigger: 'blur'},
-    {min: 8, message: t('messages.formValidation.minLength', [8]), trigger: 'blur'},
+    {required: true, message: computed(()=>t('messages.formValidation.requiredNotFilled')), trigger: 'blur'},
+    {min: 8, message: computed(()=>t('messages.formValidation.minLength', [8])), trigger: 'blur'},
     // { validator: validatePass2, trigger: 'blur' }
   ],
 })
