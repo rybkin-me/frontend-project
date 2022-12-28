@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.2.2",
+    "@vueuse/core": "^9.9.0",
     "boxicons": "^2.1.4",
     "core-js": "^3.8.3",
     "element-plus": "^2.2.27",
