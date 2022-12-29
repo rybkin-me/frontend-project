@@ -4,7 +4,7 @@
       <main-header/>
     </el-header>
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="200px" v-if="route.meta.sidebar">
         <main-sidebar/>
       </el-aside>
       <el-main>
@@ -21,8 +21,10 @@ import MainHeader from "@/components/MainHeader"
 import {useUsersStore} from "@/stores/users";
 import {onMounted, ref} from 'vue'
 import MainSidebar from "@/components/MainSidebar";
+import {useRoute} from "vue-router";
 
 const userStore = useUsersStore()
+const route = useRoute()
 
 const loading = ref(true)
 
@@ -30,7 +32,6 @@ onMounted(() => {
   userStore.initializeAuth().then(() => {
     loading.value = false
   })
-
 })
 </script>
 

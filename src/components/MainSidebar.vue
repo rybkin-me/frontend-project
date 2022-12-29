@@ -1,17 +1,16 @@
 <template>
-  <!--  TODO fix path in default-active-->
   <el-menu
       :collapse="isCollapsed"
-      :default-active="route.path"
-      :router="true"
+      :default-active="route.meta.sidebarIndex"
+      :router="false"
       mode="vertical"
       style="height: 100%"
   >
     <el-menu-item
         v-for="route in routes"
         :key="route.path"
-        :index="route.path"
-        :route="route.route"
+        :index="route.index"
+        @click="redirectToPage(route.path)"
     >
       <el-icon>
         <component :is="route.icon"/>
@@ -33,25 +32,31 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
 import {HomeIcon, RectangleStackIcon} from "@heroicons/vue/24/outline";
 
 const {t} = useI18n()
 const route = useRoute()
+const router = useRouter()
 const isCollapsed = ref(false)
 
+const redirectToPage = (path) => {
+  router.push({path: path})
+}
 
 const routes = [
   {
     name: 'sidebar.home',
     icon: HomeIcon,
     path: '/',
+    index: 'home'
   },
   {
     name: 'sidebar.tasks',
     icon: RectangleStackIcon,
     path: '/tasks',
+    index: 'tasks'
   },
 ]
 </script>
