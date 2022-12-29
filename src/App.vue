@@ -4,7 +4,7 @@
       <main-header/>
     </el-header>
     <el-container>
-      <el-aside width="200px" v-if="route.meta.sidebar">
+      <el-aside v-if="route.meta.sidebar" width="200px">
         <main-sidebar/>
       </el-aside>
       <el-main>
