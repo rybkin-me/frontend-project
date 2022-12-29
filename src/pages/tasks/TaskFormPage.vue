@@ -155,6 +155,7 @@ const submitForm = async () => {
     subject_id: 1
   })
   loading.value = false
+  tasksStore.setListRefresh()
   await router.push({'name': "taskList"})
 }
 
@@ -171,7 +172,7 @@ const formData = reactive({
   open_at: null,
   deadline_at: null,
   protection_deadline_at: null,
-  subject: 1
+  subject_id: 1
 })
 
 const shortcuts = [

@@ -46,6 +46,7 @@ const fetchTasks = async () => {
   loading.value = true
   tasksStore.fetchTasks().then(() => {
     loading.value = false
+    tasksStore.resetListRefresh()
   })
 }
 const redirectToTaskForm = () => {
@@ -53,7 +54,7 @@ const redirectToTaskForm = () => {
 }
 
 onMounted(() => {
-  if (tasksStore.processedTasksList === null) {
+  if (tasksStore.settings.refreshList) {
     fetchTasks()
   }
 })

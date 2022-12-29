@@ -9,7 +9,8 @@ export const useTasksStore = defineStore('tasks', {
             dateFormatMode: 'absolute',
             sortKey: 'deadline_at',
             sortOrder: 'asc',
-            viewMode: 'table'
+            viewMode: 'table',
+            refreshList: true
         }
     }),
     getters: {
@@ -43,6 +44,12 @@ export const useTasksStore = defineStore('tasks', {
         },
         setListSortOrder(order) {
             this.settings.sortOrder = order
+        },
+        setListRefresh() {
+            this.settings.refreshList = true
+        },
+        resetListRefresh() {
+            this.settings.refreshList = false
         },
         async fetchTasks() {
             let {data, error} = await supabase
