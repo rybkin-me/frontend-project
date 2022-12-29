@@ -2,6 +2,7 @@ import {defineStore} from 'pinia'
 import {supabase} from "@/supabase";
 import {i18n} from "@/i18n/main";
 import {flipObject, LOCALES} from "@/helpers";
+import moment from "moment";
 
 export const useUsersStore = defineStore('users', {
     state: () => ({
@@ -53,6 +54,7 @@ export const useUsersStore = defineStore('users', {
                 } else {
                     this.userdata = data[0]
                     i18n.global.locale.value = LOCALES[this.userdata.locale]
+                    moment.locale(LOCALES[this.userdata.locale])
                 }
             }
         },
