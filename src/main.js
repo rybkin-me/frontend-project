@@ -6,8 +6,7 @@ import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import {router} from "@/router/main";
 import {i18n} from "@/i18n/main";
-import 'boxicons';
-import 'boxicons/css/boxicons.min.css';
+
 
 const pinia = createPinia()
 

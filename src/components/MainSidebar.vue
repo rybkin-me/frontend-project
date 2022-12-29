@@ -14,7 +14,7 @@
         :route="route.route"
     >
       <el-icon>
-        <box-icon :name="route.icon"/>
+        <component :is="route.icon"/>
       </el-icon>
       <template #title>
         {{ t(route.name) }}
@@ -35,6 +35,7 @@
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
 import {ref} from "vue";
+import {HomeIcon, RectangleStackIcon} from "@heroicons/vue/24/outline";
 
 const {t} = useI18n()
 const route = useRoute()
@@ -44,17 +45,12 @@ const isCollapsed = ref(false)
 const routes = [
   {
     name: 'sidebar.home',
-    icon: 'home',
+    icon: HomeIcon,
     path: '/',
   },
   {
-    name: 'sidebar.subjects',
-    icon: 'spreadsheet',
-    path: '/subjects',
-  },
-  {
     name: 'sidebar.tasks',
-    icon: 'task',
+    icon: RectangleStackIcon,
     path: '/tasks',
   },
 ]
