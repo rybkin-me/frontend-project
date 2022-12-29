@@ -152,7 +152,7 @@ const submitForm = async () => {
     open_at: null,
     deadline_at: null,
     protection_deadline_at: null,
-    subject: 1
+    subject_id: 1
   })
   loading.value = false
   await router.push({'name': "taskList"})
