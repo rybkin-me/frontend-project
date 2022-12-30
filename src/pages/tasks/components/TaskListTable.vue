@@ -55,8 +55,6 @@
         </span>
       </template>
     </el-table-column>
-    <template #append>
-    </template>
   </el-table>
 </template>
 

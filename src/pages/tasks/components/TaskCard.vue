@@ -1,8 +1,5 @@
 <template>
-  <el-card
-      :header="task.name"
-      class="box-card"
-  >
+  <el-card>
     <template #header>
       <div class="card-header">
         <el-space :spacer="spacer" direction="horizontal">
