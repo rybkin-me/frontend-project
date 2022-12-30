@@ -18,34 +18,8 @@
       </el-header>
 
       <el-main>
+        <course-descriptions :course="coursesStore.courseInfo"/>
 
-        <el-descriptions :column="1">
-          <el-descriptions-item label="Описание">
-        <span>
-          {{ coursesStore.courseInfo.short_description ? coursesStore.courseInfo.short_description : '-' }}
-        </span>
-          </el-descriptions-item>
-          <el-descriptions-item label="Дата начала">
-        <span>
-          {{
-            formatDate(
-                coursesStore.courseInfo.start_date,
-                coursesStore.dateFormatMode === 'relative'
-            )
-          }}
-        </span>
-          </el-descriptions-item>
-          <el-descriptions-item label="Дата конца">
-        <span>
-          {{
-            formatDate(
-                coursesStore.courseInfo.end_date,
-                coursesStore.dateFormatMode === 'relative'
-            )
-          }}
-        </span>
-          </el-descriptions-item>
-        </el-descriptions>
         <el-tabs v-model="activeTabName">
           <el-tab-pane label="Пользователи" name="users">
             <course-users-list-table
@@ -73,9 +47,9 @@
 import {onMounted, ref} from "vue";
 import {onBeforeRouteLeave, useRoute} from "vue-router";
 import {useCoursesStore} from "@/stores/courses";
-import {formatDate} from "@/helpers";
 import TaskListTable from "@/pages/tasks/components/TaskListTable";
 import CourseUsersListTable from "@/pages/courses/components/CourseUsersListTable";
+import CourseDescriptions from "@/pages/courses/components/CourseDescriptions";
 
 const loading = ref(false)
 const activeTabName = ref('users')

@@ -7,34 +7,7 @@
         </el-space>
       </div>
     </template>
-
-    <el-descriptions :column="1">
-      <el-descriptions-item label="Описание">
-        <span>
-          {{ course.short_description ? course.short_description : '-' }}
-        </span>
-      </el-descriptions-item>
-      <el-descriptions-item label="Дата начала">
-        <span>
-          {{
-            formatDate(
-                course.start_date,
-                coursesStore.dateFormatMode === 'relative'
-            )
-          }}
-        </span>
-      </el-descriptions-item>
-      <el-descriptions-item label="Дата конца">
-        <span>
-          {{
-            formatDate(
-                course.end_date,
-                coursesStore.dateFormatMode === 'relative'
-            )
-          }}
-        </span>
-      </el-descriptions-item>
-    </el-descriptions>
+    <course-descriptions :course="course"/>
   </el-card>
 </template>
 
@@ -42,14 +15,12 @@
 
 import {defineProps, h, ref} from "vue";
 import {ElDivider} from "element-plus";
-import {formatDate} from "@/helpers";
-import {useCoursesStore} from "@/stores/courses";
+import CourseDescriptions from "@/pages/courses/components/CourseDescriptions";
 
 const props = defineProps(['course'])
 const course = ref(props.course)
 const spacer = h(ElDivider, {direction: 'vertical'})
 
-const coursesStore = useCoursesStore()
 
 </script>
 
