@@ -23,6 +23,8 @@
     <el-main>
       <task-list-cards
           v-if="tasksStore.listViewMode === 'cards'"
+          :loading="loading"
+          :tasks-list="tasksStore.processedTasksList"
       />
       <task-list-table
           v-else-if="tasksStore.listViewMode === 'table'"
