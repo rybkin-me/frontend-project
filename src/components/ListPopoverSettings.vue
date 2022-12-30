@@ -1,5 +1,5 @@
 <template>
-  <el-popover :width="200" placement="bottom" trigger="click">
+  <el-popover style="width: fit-content" placement="bottom" trigger="click">
     <template #reference>
       <el-button :icon="Cog6ToothIcon"/>
     </template>
