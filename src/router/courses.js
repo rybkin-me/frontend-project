@@ -1,4 +1,4 @@
-import TaskFormPage from "@/pages/tasks/TaskFormPage";
+import CourseFormPage from "@/pages/courses/CourseFormPage";
 import CourseListPage from "@/pages/courses/CourseListPage"
 
 export const courseRoutes = [
@@ -14,7 +14,7 @@ export const courseRoutes = [
     {
         path: '/courses/new',
         name: 'courseNew',
-        component: TaskFormPage,
+        component: CourseFormPage,
         meta: {
             sidebar: true,
             sidebarIndex: 'courses'

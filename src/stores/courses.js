@@ -73,9 +73,9 @@ export const useCoursesStore = defineStore('courses', {
             }
             // console.log(this.userdata)
         },
-        async upsertTask(formData) {
+        async upsertCourse(formData) {
             let {data, error} = await supabase
-                .from('tasks')
+                .from('courses')
                 .upsert(formData)
                 .select()
 
