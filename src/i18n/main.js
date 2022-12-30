@@ -7,8 +7,7 @@ export const i18n = createI18n({
     messages: {
         en: {
             sidebar: {
-                groups: 'Groups',
-                subjects: 'Subjects',
+                courses: 'Courses',
                 tasks: 'Tasks',
                 home: 'Home',
                 collapse: 'Collapse'
@@ -35,8 +34,7 @@ export const i18n = createI18n({
         },
         ru: {
             sidebar: {
-                groups: 'Группы',
-                subjects: 'Предметы',
+                courses: 'Курсы',
                 tasks: 'Задания',
                 home: 'Главная',
                 collapse: 'Скрыть'
