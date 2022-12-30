@@ -1,8 +1,16 @@
 import {defineStore} from 'pinia'
-import {supabase} from "@/supabase";
 import {i18n} from "@/i18n/main";
-import {flipObject, LOCALES} from "@/helpers";
+import {LOCALES} from "@/helpers";
 import moment from "moment";
+import {
+    fetchUserData,
+    getSession,
+    insertUserdata,
+    setAuthStateChangeListener,
+    signIn,
+    signOut,
+    signUp
+} from "@/queries/users";
 
 export const useUsersStore = defineStore('users', {
     state: () => ({
@@ -26,29 +34,15 @@ export const useUsersStore = defineStore('users', {
     },
     actions: {
         async initializeAuth() {
-            const {data, error} = await supabase.auth.getSession()
-            console.log('session: ', data, error)
-            if (error) {
-                console.log(error)
-            }
-            this.session = data.session
-            await this.fetchUserData()
-            supabase.auth.onAuthStateChange(async (event, _session) => {
-                this.session = _session
-                if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
-                    console.log(event)
-                    await this.fetchUserData()
-                }
-            })
+            await setAuthStateChangeListener(this.setSession, this.fetchUserData)
+            await getSession()
+        },
+        async setSession(session) {
+            this.session = session
         },
         async fetchUserData() {
             if (this.session !== null) {
-                console.log(this.session)
-                let {data, error} = await supabase
-                    .from('users')
-                    .select()
-                    .eq('auth_id', this.session.user.id)
-                console.log('userdata: ', data, error)
+                let {data} = await fetchUserData(this.session.user.id)
                 if (data.length === 0) {
                     this.userdata = null
                 } else {
@@ -60,39 +54,19 @@ export const useUsersStore = defineStore('users', {
         },
         async signIn(formData) {
             const {email, password} = formData
-            console.log(email, password)
-            const {data, error} = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password
-            })
-            console.log(data, error)
+            await signIn(email, password)
         },
         async signUp(formData) {
             const {email, password, fio} = formData
-            console.log(email, password, fio)
-            const {data: authData, error: authError} = await supabase.auth.signUp({
-                email: email,
-                password: password
-            })
-            console.log(authData, authError)
+            const {data: authData, error: authError} = await signUp(email, password)
             if (authError === null) {
-                const {data: userData, error: userError} = await supabase
-                    .from('users')
-                    .insert([
-                        {
-                            fio: fio,
-                            auth_id: authData.user.id,
-                            locale: flipObject(LOCALES)[i18n.global.locale.value]
-                        },
-                    ])
-                console.log(userData, userError)
+                await insertUserdata(fio, authData.user.id)
             }
         },
         async signOut() {
-            const {error} = await supabase.auth.signOut()
+            await signOut()
             this.userdata = null
             this.session = null
-            console.log(error)
         }
     },
 })

@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {supabase} from "@/supabase";
+import {fetchMyTasks, upsertTask} from "@/queries/tasks";
 
 export const useTasksStore = defineStore('tasks', {
     state: () => ({
@@ -52,21 +52,7 @@ export const useTasksStore = defineStore('tasks', {
             this.settings.refreshList = false
         },
         async fetchTasks() {
-            let {data, error} = await supabase
-                .from('tasks')
-                .select(`
-                id,
-                name,
-                is_mandatory,
-                is_protectable,
-                deadline_at,
-                protection_deadline_at,
-                course:course_id (
-                    id,
-                    name
-                )
-                `)
-            console.log(data, error)
+            let {data, error} = await fetchMyTasks()
             if (error !== null) {
                 console.log(error)
             } else {
@@ -74,12 +60,7 @@ export const useTasksStore = defineStore('tasks', {
             }
         },
         async upsertTask(formData) {
-            let {data, error} = await supabase
-                .from('tasks')
-                .upsert(formData)
-                .select()
-
-            console.log(data, error)
+            let {error} = await upsertTask(formData)
             if (error !== null) {
                 console.log(error)
             }

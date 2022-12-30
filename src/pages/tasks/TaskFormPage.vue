@@ -190,7 +190,7 @@ const coursesLoading = ref(false)
 const fetchAdminCoursesWrapper = (query) => {
   if (query) {
     coursesLoading.value = true
-    fetchAdminCourses(query).then((data) => {
+    fetchAdminCourses(query).then(({data}) => {
       coursesOptions.value = data
       coursesLoading.value = false
     })

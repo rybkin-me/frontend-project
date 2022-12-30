@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {supabase} from "@/supabase";
+import {fetchMyCourses, upsertCourse} from "@/queries/courses";
 
 export const useCoursesStore = defineStore('courses', {
     state: () => ({
@@ -52,20 +52,7 @@ export const useCoursesStore = defineStore('courses', {
             this.settings.refreshList = false
         },
         async fetchCourses() {
-            let {data, error} = await supabase
-                .from('courses')
-                .select(`
-                id,
-                name,
-                short_description,
-                start_date,
-                end_date,
-                created_by (
-                    id,
-                    fio
-                )
-                `)
-            console.log(data, error)
+            const {data, error} = await fetchMyCourses()
             if (error !== null) {
                 console.log(error)
             } else {
@@ -73,12 +60,7 @@ export const useCoursesStore = defineStore('courses', {
             }
         },
         async upsertCourse(formData) {
-            let {data, error} = await supabase
-                .from('courses')
-                .upsert(formData)
-                .select()
-
-            console.log(data, error)
+            const {error} = upsertCourse(formData)
             if (error !== null) {
                 console.log(error)
             }
