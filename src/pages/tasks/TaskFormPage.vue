@@ -78,46 +78,25 @@
           <el-form-item label="Сдача онлайн">
             <el-switch v-model="formData.is_submittable"/>
           </el-form-item>
-          <!--          <el-form-item label="Группа">-->
-          <!--            <el-select-->
-          <!--                v-model="value"-->
-          <!--                :loading="loading"-->
-          <!--                :remote-method="remoteMethod"-->
-          <!--                filterable-->
-          <!--                multiple-->
-          <!--                placeholder="Please enter a keyword"-->
-          <!--                remote-->
-          <!--                remote-show-suffix-->
-          <!--                reserve-keyword-->
-          <!--            >-->
-          <!--              <el-option-->
-          <!--                  v-for="item in options"-->
-          <!--                  :key="item.value"-->
-          <!--                  :label="item.label"-->
-          <!--                  :value="item.value"-->
-          <!--              />-->
-          <!--            </el-select>-->
-          <!--          </el-form-item>-->
-          <!--          <el-form-item label="Предмет">-->
-          <!--            <el-select-->
-          <!--                v-model="value"-->
-          <!--                :loading="loading"-->
-          <!--                :remote-method="remoteMethod"-->
-          <!--                filterable-->
-          <!--                multiple-->
-          <!--                placeholder="Please enter a keyword"-->
-          <!--                remote-->
-          <!--                remote-show-suffix-->
-          <!--                reserve-keyword-->
-          <!--            >-->
-          <!--              <el-option-->
-          <!--                  v-for="item in options"-->
-          <!--                  :key="item.value"-->
-          <!--                  :label="item.label"-->
-          <!--                  :value="item.value"-->
-          <!--              />-->
-          <!--            </el-select>-->
-          <!--          </el-form-item>-->
+          <el-form-item label="Курс">
+            <el-select
+                v-model="formData.course_id"
+                :loading="coursesLoading"
+                :remote-method="fetchAdminCoursesWrapper"
+                filterable
+                placeholder="Please enter a keyword"
+                remote
+                remote-show-suffix
+                reserve-keyword
+            >
+              <el-option
+                  v-for="item in coursesOptions"
+                  :key="item.course.id"
+                  :label="item.course.name"
+                  :value="item.course.id"
+              />
+            </el-select>
+          </el-form-item>
           <el-button type="primary" @click="submitForm()">Создать</el-button>
         </el-form>
       </el-container>
@@ -129,6 +108,7 @@
 import {reactive, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useTasksStore} from "@/stores/tasks";
+import {fetchAdminCourses} from "@/queries/courses";
 
 const router = useRouter()
 const route = useRoute()
@@ -144,15 +124,13 @@ const submitForm = async () => {
     description: '',
     punishment: '',
     kind: 1,
-    group: null,
-    user: 3,
     is_submittable: true,
     is_mandatory: true,
     is_protectable: false,
     open_at: null,
     deadline_at: null,
     protection_deadline_at: null,
-    course_id: 1
+    course_id: null
   })
   loading.value = false
   tasksStore.setListRefresh()
@@ -164,15 +142,13 @@ const formData = reactive({
   description: '',
   punishment: '',
   kind: 1,
-  group: null,
-  user: 3,
   is_submittable: true,
   is_mandatory: true,
   is_protectable: false,
   open_at: null,
   deadline_at: null,
   protection_deadline_at: null,
-  course_id: 1
+  course_id: null
 })
 
 const shortcuts = [
@@ -208,6 +184,20 @@ const shortcuts = [
     },
   },
 ]
+
+const coursesOptions = ref([])
+const coursesLoading = ref(false)
+const fetchAdminCoursesWrapper = (query) => {
+  if (query) {
+    coursesLoading.value = true
+    fetchAdminCourses(query).then((data) => {
+      coursesOptions.value = data
+      coursesLoading.value = false
+    })
+  } else {
+    coursesOptions.value = []
+  }
+}
 </script>
 
 <style scoped>
