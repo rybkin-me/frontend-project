@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-
+import {ExclamationCircleIcon, ShieldCheckIcon} from "@heroicons/vue/20/solid";
 import {defineProps, h, ref} from "vue";
 import {ElDivider} from "element-plus";
 import moment from "moment";
