@@ -1,42 +1,6 @@
 import {supabase} from "@/supabase";
-import {flipObject, LOCALES} from "@/helpers";
+import {flipObject, LOCALES, processError} from "@/helpers";
 import {i18n} from "@/i18n/main";
-
-export const fetchUserData = async function (userId) {
-    let {data, error} = await supabase
-        .from('users')
-        .select()
-        .eq('auth_id', userId)
-    console.debug(data, error)
-    return {data, error}
-}
-export const signUp = async function (email, password) {
-    const {data, error} = await supabase.auth.signUp({
-        email: email,
-        password: password
-    })
-    console.debug(data, error)
-    return {data, error}
-}
-export const signIn = async function (email, password) {
-    const {data, error} = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
-    })
-    console.debug(data, error)
-    return {data, error}
-}
-export const signOut = async function () {
-    const {data, error} = await supabase.auth.signOut()
-    console.debug(data, error)
-    return {data, error}
-}
-
-export const getSession = async function () {
-    const {data, error} = await supabase.auth.getSession()
-    console.debug(data, error)
-    return {data, error}
-}
 
 export const setAuthStateChangeListener = async function (setSession, fetchUserData) {
     supabase.auth.onAuthStateChange(async (event, _session) => {
@@ -49,6 +13,42 @@ export const setAuthStateChangeListener = async function (setSession, fetchUserD
     })
 }
 
+export const fetchUserData = async function (userId) {
+    let {data, error} = await supabase
+        .from('users')
+        .select()
+        .eq('auth_id', userId)
+    processError(error)
+    return {data}
+}
+export const signUp = async function (email, password) {
+    const {data, error} = await supabase.auth.signUp({
+        email: email,
+        password: password
+    })
+    processError(error)
+    return {data}
+}
+export const signIn = async function (email, password) {
+    const {data, error} = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+    })
+    processError(error)
+    return {data}
+}
+export const signOut = async function () {
+    const {data, error} = await supabase.auth.signOut()
+    processError(error)
+    return {data}
+}
+
+export const getSession = async function () {
+    const {data, error} = await supabase.auth.getSession()
+    processError(error)
+    return {data}
+}
+
 export const insertUserdata = async function (fio, authId) {
     const {data, error} = await supabase
         .from('users')
@@ -59,7 +59,7 @@ export const insertUserdata = async function (fio, authId) {
                 locale: flipObject(LOCALES)[i18n.global.locale.value]
             },
         ])
-    console.debug(data, error)
-    return {data, error}
+    processError(error)
+    return {data}
 }
 

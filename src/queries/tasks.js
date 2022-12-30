@@ -1,4 +1,5 @@
 import {supabase} from "@/supabase";
+import {processError} from "@/helpers";
 
 export const fetchMyTasks = async function () {
     let {data, error} = await supabase
@@ -15,14 +16,14 @@ export const fetchMyTasks = async function () {
                     name
                 )
                 `)
-    console.debug(data, error)
-    return {data, error}
+    processError(error)
+    return {data}
 }
 export const upsertTask = async function (formData) {
     const {data, error} = await supabase
         .from('tasks')
         .upsert(formData)
         .select()
-    console.debug(data, error)
-    return {data, error}
+    processError(error)
+    return {data}
 }

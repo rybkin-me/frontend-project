@@ -1,5 +1,5 @@
 import {supabase} from "@/supabase";
-import {COURSE_STATUS} from "@/helpers";
+import {COURSE_STATUS, processError} from "@/helpers";
 import {useUsersStore} from "@/stores/users";
 
 export const fetchAdminCourses = async function (query) {
@@ -12,8 +12,8 @@ export const fetchAdminCourses = async function (query) {
         .eq('user_id', usersStore.userId)
         .in('status', [COURSE_STATUS.ADMIN, COURSE_STATUS.TEACHER, COURSE_STATUS.TUTOR])
         .ilike('course.name', `%${query}%`)
-    console.debug(data, error)
-    return {data, error}
+    processError(error)
+    return {data}
 }
 export const fetchMyCourses = async function () {
     let {data, error} = await supabase
@@ -29,8 +29,8 @@ export const fetchMyCourses = async function () {
                     fio
                 )
                 `)
-    console.debug(data, error)
-    return {data, error}
+    processError(error)
+    return {data}
 }
 export const upsertCourse = async function (formData) {
 
@@ -38,6 +38,6 @@ export const upsertCourse = async function (formData) {
         .from('courses')
         .upsert(formData)
         .select()
-    console.debug(data, error)
-    return {data, error}
+    processError(error)
+    return {data}
 }
