@@ -34,7 +34,7 @@
 import {useI18n} from "vue-i18n";
 import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
-import {HomeIcon, RectangleStackIcon} from "@heroicons/vue/24/outline";
+import {CheckBadgeIcon, HomeIcon, RectangleStackIcon} from "@heroicons/vue/24/outline";
 
 const {t} = useI18n()
 const route = useRoute()
@@ -53,8 +53,14 @@ const routes = [
     index: 'home'
   },
   {
-    name: 'sidebar.tasks',
+    name: 'sidebar.courses',
     icon: RectangleStackIcon,
+    path: '/courses',
+    index: 'courses'
+  },
+  {
+    name: 'sidebar.tasks',
+    icon: CheckBadgeIcon,
     path: '/tasks',
     index: 'tasks'
   },
