@@ -5,7 +5,7 @@ import {useUsersStore} from "@/stores/users";
 export const fetchAdminCourses = async function (query) {
     const usersStore = useUsersStore();
     let {data, error} = await supabase
-        .from('users_courses')
+        .from('courses_users')
         .select(`
                     course:course_id!inner (*)
                 `)
