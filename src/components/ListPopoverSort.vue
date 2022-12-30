@@ -6,24 +6,11 @@
     <el-space direction="vertical">
       <el-radio-group v-model="listSortKey" class="ml-4">
         <el-radio
-            label="name"
+            v-for="option in sortOptions"
+            :key="option.value"
+            :label="option.value"
         >
-          Название
-        </el-radio>
-        <el-radio
-            label="deadline_at"
-        >
-          Дедлайн сдачи
-        </el-radio>
-        <el-radio
-            label="protection_deadline_at"
-        >
-          Дедлайн защиты
-        </el-radio>
-        <el-radio
-            label="open_at"
-        >
-          Дата выдачи
+          {{option.name}}
         </el-radio>
       </el-radio-group>
       <div class="sort-switch-wrapper">
@@ -42,20 +29,23 @@
 </template>
 
 <script setup>
-import {ref, watch} from "vue";
-import {useTasksStore} from "@/stores/tasks";
+import {defineProps, reactive, ref, watch} from "vue";
 import {ArrowDownIcon, ArrowsUpDownIcon, ArrowUpIcon} from "@heroicons/vue/24/solid";
 
-const tasksStore = useTasksStore()
-const listSortKey = ref('deadline_at')
-const listSortOrder = ref('asc')
+const props = defineProps(['useStore', 'sortOptions', 'defaultOption', 'defaultOrder'])
+const store = props.useStore()
+const sortOptions = reactive(props.sortOptions)
+
+
+const listSortKey = ref(props.defaultOption)
+const listSortOrder = ref(props.defaultOrder)
 
 function changeListSortKey() {
-  tasksStore.setListSortKey(listSortKey.value)
+  store.setListSortKey(listSortKey.value)
 }
 
 function changeListSortOrder() {
-  tasksStore.setListSortOrder(listSortOrder.value)
+  store.setListSortOrder(listSortOrder.value)
 }
 
 watch(listSortKey, changeListSortKey)

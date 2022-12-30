@@ -33,20 +33,21 @@
 </template>
 
 <script setup>
-import {ref, watch} from "vue";
-import {useTasksStore} from "@/stores/tasks";
+import {defineProps, ref, watch} from "vue";
 import {Bars3Icon, BoltIcon, CalendarDaysIcon, Cog6ToothIcon, Squares2X2Icon} from "@heroicons/vue/24/solid";
 
-const tasksStore = useTasksStore()
+const props = defineProps(['useStore'])
+const store = props.useStore()
+
 const listViewMode = ref(false)
 const dateFormatMode = ref('absolute')
 
 function switchListViewMode() {
-  tasksStore.setListViewMode(listViewMode.value)
+  store.setListViewMode(listViewMode.value)
 }
 
 function switchDateFormatMode() {
-  tasksStore.setDateFormatMode(dateFormatMode.value)
+  store.setDateFormatMode(dateFormatMode.value)
 }
 
 watch(listViewMode, switchListViewMode)
@@ -55,10 +56,5 @@ watch(dateFormatMode, switchDateFormatMode)
 </script>
 
 <style scoped>
-.sort-switch-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
+
 </style>
