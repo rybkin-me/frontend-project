@@ -72,7 +72,6 @@ export const useTasksStore = defineStore('tasks', {
             } else {
                 this.tasks = data
             }
-            // console.log(this.userdata)
         },
         async upsertTask(formData) {
             let {data, error} = await supabase
@@ -84,21 +83,6 @@ export const useTasksStore = defineStore('tasks', {
             if (error !== null) {
                 console.log(error)
             }
-            // console.log(this.userdata)
         },
-        // async updateUserdata(last_name, first_name, middle_name) {
-        //     const {data, error} = await supabase
-        //         .from('users')
-        //         .insert([
-        //             {
-        //                 last_name: last_name,
-        //                 first_name: first_name,
-        //                 middle_name: middle_name,
-        //                 auth_id: this.userId
-        //             },
-        //         ])
-        //     console.log(data, error)
-        //     await this.fetchUserData()
-        // },
     },
 })

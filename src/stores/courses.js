@@ -71,7 +71,6 @@ export const useCoursesStore = defineStore('courses', {
             } else {
                 this.courses = data
             }
-            // console.log(this.userdata)
         },
         async upsertCourse(formData) {
             let {data, error} = await supabase
@@ -83,21 +82,6 @@ export const useCoursesStore = defineStore('courses', {
             if (error !== null) {
                 console.log(error)
             }
-            // console.log(this.userdata)
-        },
-        // async updateUserdata(last_name, first_name, middle_name) {
-        //     const {data, error} = await supabase
-        //         .from('users')
-        //         .insert([
-        //             {
-        //                 last_name: last_name,
-        //                 first_name: first_name,
-        //                 middle_name: middle_name,
-        //                 auth_id: this.userId
-        //             },
-        //         ])
-        //     console.log(data, error)
-        //     await this.fetchUserData()
-        // },
+        }
     },
 })
