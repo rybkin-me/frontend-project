@@ -62,12 +62,11 @@
 import {useTasksStore} from "@/stores/tasks";
 import {ExclamationCircleIcon, ShieldCheckIcon} from "@heroicons/vue/20/solid";
 import moment from 'moment'
-import {defineProps, ref, watch} from "vue";
+import {defineProps, toRefs, watch} from "vue";
 
 const tasksStore = useTasksStore()
 const props = defineProps(['tasksList', 'loading'])
-const tasksList = ref(props.tasksList)
-const loading = ref(props.loading)
+const {tasksList, loading} = toRefs(props)
 
 
 const formatDate = (date) => {

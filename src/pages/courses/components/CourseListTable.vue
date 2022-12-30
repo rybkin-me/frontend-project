@@ -29,13 +29,12 @@
 <script setup>
 import moment from 'moment'
 import {useCoursesStore} from "@/stores/courses";
-import {defineProps, ref, watch} from "vue";
+import {defineProps, toRefs} from "vue";
 
 const coursesStore = useCoursesStore()
 
 const props = defineProps(['coursesList', 'loading'])
-const coursesList = ref(props.coursesList)
-const loading = ref(props.loading)
+const {coursesList, loading} = toRefs(props)
 
 const formatDate = (date) => {
   const parsedDate = moment(date)
@@ -44,8 +43,6 @@ const formatDate = (date) => {
   }
   return parsedDate.format("D MMMM YY")
 }
-watch(() => props.loading, () => loading.value = props.loading)
-
 </script>
 
 <style scoped>

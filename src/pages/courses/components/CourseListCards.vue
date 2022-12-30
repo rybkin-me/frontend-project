@@ -18,15 +18,10 @@
 
 <script setup>
 import CourseCard from "@/pages/courses/components/CourseCard";
-import {defineProps, ref, watch} from "vue";
+import {defineProps, toRefs} from "vue";
 
 const props = defineProps(['coursesList', 'loading'])
-const coursesList = ref(props.coursesList)
-const loading = ref(props.loading)
-
-
-watch(() => props.loading, () => loading.value = props.loading)
-
+const {coursesList, loading} = toRefs(props)
 </script>
 
 <style scoped>
