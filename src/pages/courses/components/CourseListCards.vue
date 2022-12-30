@@ -9,6 +9,8 @@
             v-for="course in coursesList"
             :key="course.id"
             :course="course"
+            class="card-link"
+            @click="redirectToInfo(course)"
         />
       </el-space>
     </div>
@@ -19,10 +21,19 @@
 <script setup>
 import CourseCard from "@/pages/courses/components/CourseCard";
 import {defineProps, toRefs} from "vue";
+import {useRouter} from "vue-router";
 
 const props = defineProps(['coursesList', 'loading'])
 const {coursesList, loading} = toRefs(props)
+const router = useRouter()
+
+const redirectToInfo = (course) => {
+  router.push({name: 'courseInfo', params: {courseId: course.id}})
+}
 </script>
 
 <style scoped>
+.card-link {
+  cursor: pointer
+}
 </style>
