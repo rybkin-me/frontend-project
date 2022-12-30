@@ -1,4 +1,4 @@
-export const GROUP_STATUS = {
+export const COURSE_STATUS = {
     'STUDENT': 1,
     'ADMIN': 2,
     'TEACHER': 3,
