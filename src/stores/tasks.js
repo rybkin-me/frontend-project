@@ -52,18 +52,11 @@ export const useTasksStore = defineStore('tasks', {
             this.settings.refreshList = false
         },
         async fetchTasks() {
-            let {data, error} = await fetchMyTasks()
-            if (error !== null) {
-                console.log(error)
-            } else {
-                this.tasks = data
-            }
+            let {data} = await fetchMyTasks()
+            this.tasks = data
         },
         async upsertTask(formData) {
-            let {error} = await upsertTask(formData)
-            if (error !== null) {
-                console.log(error)
-            }
+            await upsertTask(formData)
         },
     },
 })

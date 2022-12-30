@@ -26,7 +26,6 @@ export const useUsersStore = defineStore('users', {
         },
         userId(state) {
             if (this.isUserdataSet) {
-                console.log(state.userdata.id)
                 return state.userdata.id
             }
             return null

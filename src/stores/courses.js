@@ -52,18 +52,11 @@ export const useCoursesStore = defineStore('courses', {
             this.settings.refreshList = false
         },
         async fetchCourses() {
-            const {data, error} = await fetchMyCourses()
-            if (error !== null) {
-                console.log(error)
-            } else {
-                this.courses = data
-            }
+            const {data} = await fetchMyCourses()
+            this.courses = data
         },
         async upsertCourse(formData) {
-            const {error} = upsertCourse(formData)
-            if (error !== null) {
-                console.log(error)
-            }
+            await upsertCourse(formData)
         }
     },
 })

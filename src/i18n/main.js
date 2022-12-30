@@ -61,5 +61,3 @@ export const i18n = createI18n({
         }
     }
 })
-
-console.log(i18n.allowComposition) // output is true
