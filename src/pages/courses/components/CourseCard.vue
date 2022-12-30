@@ -16,12 +16,22 @@
       </el-descriptions-item>
       <el-descriptions-item label="Дата начала">
         <span>
-          {{ formatDate(course.start_date) }}
+          {{
+            formatDate(
+                course.start_date,
+                coursesStore.dateFormatMode === 'relative'
+            )
+          }}
         </span>
       </el-descriptions-item>
       <el-descriptions-item label="Дата конца">
         <span>
-          {{ formatDate(course.end_date) }}
+          {{
+            formatDate(
+                course.end_date,
+                coursesStore.dateFormatMode === 'relative'
+            )
+          }}
         </span>
       </el-descriptions-item>
     </el-descriptions>
@@ -32,7 +42,7 @@
 
 import {defineProps, h, ref} from "vue";
 import {ElDivider} from "element-plus";
-import moment from "moment";
+import {formatDate} from "@/helpers";
 import {useCoursesStore} from "@/stores/courses";
 
 const props = defineProps(['course'])
@@ -41,16 +51,6 @@ const spacer = h(ElDivider, {direction: 'vertical'})
 
 const coursesStore = useCoursesStore()
 
-const formatDate = (date) => {
-  if (date === null) {
-    return '-'
-  }
-  const parsedDate = moment(date)
-  if (coursesStore.dateFormatMode === 'relative') {
-    return parsedDate.fromNow()
-  }
-  return parsedDate.format("D MMMM HH:mm")
-}
 </script>
 
 <style scoped>

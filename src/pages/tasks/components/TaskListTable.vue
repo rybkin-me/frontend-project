@@ -43,15 +43,25 @@
     </el-table-column>
     <el-table-column label="Дедлайн сдачи">
       <template #default="scope">
-        <span :class="{'warning': checkBefore(scope.row.deadline_at)}">
-          {{ formatDate(scope.row.deadline_at) }}
+        <span :class="{'warning': checkDateBefore(scope.row.deadline_at)}">
+          {{
+            formatDate(
+                scope.row.deadline_at,
+                tasksStore.dateFormatMode === 'relative'
+            )
+          }}
         </span>
       </template>
     </el-table-column>
     <el-table-column label="Дедлайн защиты">
       <template #default="scope">
-        <span :class="{'warning': checkBefore(scope.row.protection_deadline_at)}">
-          {{ formatDate(scope.row.protection_deadline_at) }}
+        <span :class="{'warning': checkDateBefore(scope.row.protection_deadline_at)}">
+          {{
+            formatDate(
+                scope.row.protection_deadline_at,
+                tasksStore.dateFormatMode === 'relative'
+            )
+          }}
         </span>
       </template>
     </el-table-column>
@@ -61,33 +71,13 @@
 <script setup>
 import {useTasksStore} from "@/stores/tasks";
 import {ExclamationCircleIcon, ShieldCheckIcon} from "@heroicons/vue/20/solid";
-import moment from 'moment'
-import {defineProps, toRefs, watch} from "vue";
+import {defineProps, toRefs} from "vue";
+import {checkDateBefore, formatDate} from "@/helpers";
 
 const tasksStore = useTasksStore()
 const props = defineProps(['tasksList', 'loading'])
 const {tasksList, loading} = toRefs(props)
 
-
-const formatDate = (date) => {
-  if (date === null) {
-    return '-'
-  }
-  const parsedDate = moment(date)
-  if (tasksStore.dateFormatMode === 'relative') {
-    return parsedDate.fromNow()
-  }
-  return parsedDate.format("D MMMM HH:mm")
-}
-
-const checkBefore = (date) => {
-  if (date === null) {
-    return false
-  }
-  return moment(date).isBefore(moment(), "minute")
-}
-
-watch(() => props.loading, () => loading.value = props.loading)
 </script>
 
 <style scoped>

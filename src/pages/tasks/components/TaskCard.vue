@@ -40,13 +40,23 @@
         </span>
       </el-descriptions-item>
       <el-descriptions-item label="Дедлайн сдачи">
-        <span :class="{'warning': checkBefore(task.deadline_at)}">
-          {{ formatDate(task.deadline_at) }}
+        <span :class="{'warning': checkDateBefore(task.deadline_at)}">
+          {{
+            formatDate(
+                task.deadline_at,
+                tasksStore.dateFormatMode === 'relative'
+            )
+          }}
         </span>
       </el-descriptions-item>
       <el-descriptions-item label="Дедлайн защиты">
-        <span :class="{'warning': checkBefore(task.protection_deadline_at)}">
-          {{ formatDate(task.protection_deadline_at) }}
+        <span :class="{'warning': checkDateBefore(task.protection_deadline_at)}">
+          {{
+            formatDate(
+                task.protection_deadline_at,
+                tasksStore.dateFormatMode === 'relative'
+            )
+          }}
         </span>
       </el-descriptions-item>
     </el-descriptions>
@@ -57,32 +67,14 @@
 import {ExclamationCircleIcon, ShieldCheckIcon} from "@heroicons/vue/20/solid";
 import {defineProps, h, ref} from "vue";
 import {ElDivider} from "element-plus";
-import moment from "moment";
 import {useTasksStore} from "@/stores/tasks";
+import {formatDate, checkDateBefore} from "@/helpers";
 
 const props = defineProps(['task'])
 const task = ref(props.task)
 const spacer = h(ElDivider, {direction: 'vertical'})
 
 const tasksStore = useTasksStore()
-
-const formatDate = (date) => {
-  if (date === null) {
-    return '-'
-  }
-  const parsedDate = moment(date)
-  if (tasksStore.dateFormatMode === 'relative') {
-    return parsedDate.fromNow()
-  }
-  return parsedDate.format("D MMMM HH:mm")
-}
-
-const checkBefore = (date) => {
-  if (date === null) {
-    return false
-  }
-  return moment(date).isBefore(moment(), "minute")
-}
 </script>
 
 <style scoped>

@@ -1,4 +1,5 @@
 import {ElNotification} from "element-plus";
+import moment from "moment";
 
 export const COURSE_STATUS = {
     'STUDENT': 1,
@@ -29,4 +30,22 @@ export const processError = function (error) {
             type: 'error',
         })
     }
+}
+
+export const formatDate = (date, relative=false) => {
+    if (date === null) {
+        return '-'
+    }
+    const parsedDate = moment(date)
+    if (relative) {
+        return parsedDate.fromNow()
+    }
+    return parsedDate.format("D MMMM YYYY")
+}
+
+export const checkDateBefore = (date) => {
+    if (date === null) {
+        return false
+    }
+    return moment(date).isBefore(moment(), "minute")
 }
