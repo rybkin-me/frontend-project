@@ -6,9 +6,18 @@
 
     <div class="flex-grow"/>
 
+    <el-menu-item>
+      <template #title>
+        Example
+      </template>
+    </el-menu-item>
     <el-sub-menu index="account">
       <template #title>
-        {{ userStore.isUserdataSet ? userStore.userdata.fio : t('auth.account') }}
+        <el-avatar :size="30">
+          <img
+              src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"
+          />
+        </el-avatar>
       </template>
 
 
