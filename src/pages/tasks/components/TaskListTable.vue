@@ -6,7 +6,7 @@
       style="width: 100%"
   >
     <el-table-column label="Название" prop="name"/>
-    <el-table-column label="Предмет" prop="subject.name"/>
+    <el-table-column label="Предмет" prop="course.name"/>
     <el-table-column label="Обязательное">
       <template #default="scope">
         <el-tooltip

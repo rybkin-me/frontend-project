@@ -1,7 +1,6 @@
 <template>
   <div style="width: fit-content">
     <el-space
-        alignment="flex-start"
         wrap
     >
       <el-card
@@ -44,7 +43,7 @@
         <el-descriptions :column="1">
           <el-descriptions-item label="Предмет">
         <span>
-          {{ task.subject.name }}
+          {{ task.course.name }}
         </span>
           </el-descriptions-item>
           <el-descriptions-item label="Дедлайн сдачи">

@@ -61,7 +61,10 @@ export const useTasksStore = defineStore('tasks', {
                 is_protectable,
                 deadline_at,
                 protection_deadline_at,
-                subject:subject_id (*)
+                course:course_id (
+                    id,
+                    name
+                )
                 `)
             console.log(data, error)
             if (error !== null) {

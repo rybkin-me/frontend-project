@@ -152,7 +152,7 @@ const submitForm = async () => {
     open_at: null,
     deadline_at: null,
     protection_deadline_at: null,
-    subject_id: 1
+    course_id: 1
   })
   loading.value = false
   tasksStore.setListRefresh()
@@ -172,7 +172,7 @@ const formData = reactive({
   open_at: null,
   deadline_at: null,
   protection_deadline_at: null,
-  subject_id: 1
+  course_id: 1
 })
 
 const shortcuts = [
