@@ -2,9 +2,11 @@
   <el-table
       v-loading="loading"
       :data="coursesList"
+      row-class-name="tableRow"
       stripe
       style="width: 100%"
       table-layout="auto"
+      @row-click="redirectToInfo"
   >
     <el-table-column label="Название" prop="name"/>
     <el-table-column label="Описание" prop="short_description"/>
@@ -40,13 +42,21 @@
 import {formatDate} from "@/helpers";
 import {useCoursesStore} from "@/stores/courses";
 import {defineProps, toRefs} from "vue";
+import {useRouter} from "vue-router";
 
 const coursesStore = useCoursesStore()
+const router = useRouter()
 
 const props = defineProps(['coursesList', 'loading'])
 const {coursesList, loading} = toRefs(props)
 
+const redirectToInfo = (row) => {
+  router.push({name: 'courseInfo', params: {courseId: row.id}})
+}
 </script>
 
-<style scoped>
+<style>
+.tableRow {
+  cursor: pointer
+}
 </style>

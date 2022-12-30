@@ -32,6 +32,45 @@ export const fetchMyCourses = async function () {
     processError(error)
     return {data}
 }
+export const fetchCourseInfo = async function (courseId) {
+    let {data, error} = await supabase
+        .from('courses')
+        .select(`
+                id,
+                name,
+                short_description,
+                start_date,
+                end_date,
+                created_by (
+                    id,
+                    fio
+                ),
+                tasks (
+                    id,
+                    name,
+                    is_mandatory,
+                    is_protectable,
+                    deadline_at,
+                    protection_deadline_at,
+                    course:course_id (
+                        id,
+                        name
+                    )
+                ),
+                users:courses_users (
+                    id,
+                    status,
+                    joined_at,
+                    user:user_id (
+                        fio
+                    )
+                )
+                `)
+        .eq('id', courseId)
+        .single()
+    processError(error)
+    return {data}
+}
 export const upsertCourse = async function (formData) {
 
     let {data, error} = await supabase

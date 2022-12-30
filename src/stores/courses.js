@@ -1,9 +1,10 @@
 import {defineStore} from 'pinia'
-import {fetchMyCourses, upsertCourse} from "@/queries/courses";
+import {fetchCourseInfo, fetchMyCourses, upsertCourse} from "@/queries/courses";
 
 export const useCoursesStore = defineStore('courses', {
     state: () => ({
         courses: null,
+        courseInfo: null,
         settings: {
             filters: {},
             dateFormatMode: 'absolute',
@@ -51,9 +52,16 @@ export const useCoursesStore = defineStore('courses', {
         resetListRefresh() {
             this.settings.refreshList = false
         },
+        resetCourseInfo() {
+            this.courseInfo = null
+        },
         async fetchCourses() {
             const {data} = await fetchMyCourses()
             this.courses = data
+        },
+        async fetchCourseInfo(courseId) {
+            const {data} = await fetchCourseInfo(courseId)
+            this.courseInfo = data
         },
         async upsertCourse(formData) {
             await upsertCourse(formData)
