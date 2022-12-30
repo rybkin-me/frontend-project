@@ -1,5 +1,5 @@
 <template>
-  <el-container v-loading="loading" class="">
+  <el-container>
     <el-header>
       <div class="header">
         <h2>Задания</h2>
@@ -26,6 +26,8 @@
       />
       <task-list-table
           v-else-if="tasksStore.listViewMode === 'table'"
+          :loading="loading"
+          :tasks-list="tasksStore.processedTasksList"
       />
     </el-main>
   </el-container>

@@ -1,9 +1,11 @@
 <template>
+  {{ loading.value }}
   <el-table
-      table-layout="auto"
-      :data="tasksStore.processedTasksList"
+      v-loading="loading"
+      :data="tasksList"
       stripe
       style="width: 100%"
+      table-layout="auto"
   >
     <el-table-column label="Название" prop="name"/>
     <el-table-column label="Предмет" prop="course.name"/>
@@ -49,7 +51,7 @@
     <el-table-column label="Дедлайн защиты">
       <template #default="scope">
         <span :class="{'warning': checkBefore(scope.row.protection_deadline_at)}">
-          {{formatDate(scope.row.protection_deadline_at)}}
+          {{ formatDate(scope.row.protection_deadline_at) }}
         </span>
       </template>
     </el-table-column>
@@ -62,8 +64,13 @@
 import {useTasksStore} from "@/stores/tasks";
 import {ExclamationCircleIcon, ShieldCheckIcon} from "@heroicons/vue/20/solid";
 import moment from 'moment'
+import {defineProps, ref, watch} from "vue";
 
 const tasksStore = useTasksStore()
+const props = defineProps(['tasksList', 'loading'])
+const tasksList = ref(props.tasksList)
+const loading = ref(props.loading)
+
 
 const formatDate = (date) => {
   if (date === null) {
@@ -82,6 +89,8 @@ const checkBefore = (date) => {
   }
   return moment(date).isBefore(moment(), "minute")
 }
+
+watch(() => props.loading, () => loading.value = props.loading)
 </script>
 
 <style scoped>
