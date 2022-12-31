@@ -33,9 +33,15 @@
                 :tasks-list="coursesStore.courseInfo.tasks"
             />
           </el-tab-pane>
-          <!--          <el-tab-pane label="FAQ" name="faq">-->
+          <el-tab-pane label="Материалы" name="materials" disabled>
 
-          <!--          </el-tab-pane>-->
+          </el-tab-pane>
+          <el-tab-pane label="FAQ" name="faq" disabled>
+
+          </el-tab-pane>
+          <el-tab-pane label="Посещения" name="attendance" disabled>
+
+          </el-tab-pane>
         </el-tabs>
       </el-main>
     </el-container>
