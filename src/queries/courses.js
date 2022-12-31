@@ -62,6 +62,7 @@ export const fetchCourseInfo = async function (courseId) {
                     status,
                     joined_at,
                     user:user_id (
+                        id,
                         fio
                     )
                 )
@@ -72,11 +73,20 @@ export const fetchCourseInfo = async function (courseId) {
     return {data}
 }
 export const upsertCourse = async function (formData) {
-
     let {data, error} = await supabase
         .from('courses')
         .upsert(formData)
         .select()
     processError(error)
     return {data}
+}
+export const createInvite = async function (formData) {
+    let {data, error} = await supabase
+        .from('courses_invites')
+        .upsert(formData)
+        .select()
+    processError(error)
+    return {data}
+
+    // maxUsers, course_id
 }

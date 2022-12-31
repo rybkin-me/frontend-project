@@ -6,7 +6,20 @@
       style="width: 100%"
       table-layout="auto"
   >
-    <el-table-column label="ФИО" prop="user.fio"/>
+    <el-table-column label="ФИО">
+      <template #default="scope">
+        <el-space>
+          <el-icon v-if="scope.row.user.id  === usersStore.userId" size="20">
+            <user-circle-icon/>
+          </el-icon>
+          <span>
+            {{
+              scope.row.user.fio
+            }}
+          </span>
+        </el-space>
+      </template>
+    </el-table-column>
     <el-table-column label="Дата добавления">
       <template #default="scope">
         <span>
@@ -36,10 +49,13 @@
 import {defineProps, toRefs} from "vue";
 import {useCoursesStore} from "@/stores/courses";
 import {COURSE_STATUS, flipObject, formatDate} from "@/helpers";
+import {useUsersStore} from "@/stores/users";
+import {UserCircleIcon} from "@heroicons/vue/24/solid";
 
 const props = defineProps(['courseUsersList', 'loading'])
 const {courseUsersList, loading} = toRefs(props)
 const coursesStore = useCoursesStore()
+const usersStore = useUsersStore()
 </script>
 
 <style>
