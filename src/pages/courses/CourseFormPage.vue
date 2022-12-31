@@ -71,12 +71,12 @@ const coursesStore = useCoursesStore()
 const submitForm = async () => {
   loading.value = true
   await coursesStore.upsertCourse(formData)
-  formData.value = reactive({
+  formData.value = {
     name: '',
     short_description: null,
     start_date: null,
     end_date: null,
-  })
+  }
   loading.value = false
   coursesStore.setListRefresh()
   await router.push({'name': "courseList"})

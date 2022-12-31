@@ -119,7 +119,7 @@ const tasksStore = useTasksStore()
 const submitForm = async () => {
   loading.value = true
   await tasksStore.upsertTask(formData)
-  formData.value = reactive({
+  formData.value = {
     name: '',
     description: '',
     punishment: '',
@@ -131,7 +131,7 @@ const submitForm = async () => {
     deadline_at: null,
     protection_deadline_at: null,
     course_id: null
-  })
+  }
   loading.value = false
   tasksStore.setListRefresh()
   await router.push({'name': "taskList"})
