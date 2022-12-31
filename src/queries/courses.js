@@ -65,6 +65,17 @@ export const fetchCourseInfo = async function (courseId) {
                         id,
                         fio
                     )
+                ),
+                invites:courses_invites (
+                    id,
+                    name,
+                    revoked,
+                    max_users,
+                    times_used,
+                    created_at,
+                    created_by (
+                        fio
+                    )
                 )
                 `)
         .eq('id', courseId)

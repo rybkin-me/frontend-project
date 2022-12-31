@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {fetchCourseInfo, fetchMyCourses, upsertCourse} from "@/queries/courses";
+import {createInvite, fetchCourseInfo, fetchMyCourses, upsertCourse} from "@/queries/courses";
 
 export const useCoursesStore = defineStore('courses', {
     state: () => ({
@@ -65,6 +65,9 @@ export const useCoursesStore = defineStore('courses', {
         },
         async upsertCourse(formData) {
             await upsertCourse(formData)
+        },
+        async createInvite(formData) {
+            await createInvite(formData)
         }
     },
 })
