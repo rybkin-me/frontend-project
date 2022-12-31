@@ -26,10 +26,17 @@
                 :course-users-list="coursesStore.courseInfo.users"
                 :loading="false"
             />
-            <el-divider/>
-            <el-button type="primary" @click="openInvitesModal = true">
-              Приглашения
-            </el-button>
+            <div
+                v-if="coursesStore.courseInfo.created_by.id === usersStore.userId"
+            >
+              <el-divider/>
+              <el-button
+                  type="primary"
+                  @click="openInvitesModal = true"
+              >
+                Приглашения
+              </el-button>
+            </div>
           </el-tab-pane>
           <el-tab-pane label="Задания" name="tasks">
             <task-list-table
@@ -62,12 +69,14 @@ import TaskListTable from "@/pages/tasks/components/TaskListTable";
 import CourseUsersListTable from "@/pages/courses/components/CourseUsersListTable";
 import CourseDescriptions from "@/pages/courses/components/CourseDescriptions";
 import InviteListModal from "@/pages/invites/InviteListModal";
+import {useUsersStore} from "@/stores/users";
 
 const loading = ref(false)
 const openInvitesModal = ref(false)
 const activeTabName = ref('users')
 const coursesStore = useCoursesStore()
 const route = useRoute()
+const usersStore = useUsersStore()
 
 const fetchCourseInfo = async () => {
   loading.value = true
