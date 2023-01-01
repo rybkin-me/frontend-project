@@ -2,20 +2,35 @@ import {supabase} from "@/supabase";
 import {COURSE_STATUS, processError} from "@/helpers";
 
 export const fetchAdminCourses = async function (query, userId) {
-    let {data, error} = await supabase
+    let {data: data1, error: error1} = await supabase
         .from('courses_users')
         .select(`
-                    course:course_id!inner (*)
+                    course:course_id!inner (
+                        id,
+                        name
+                    )
                 `)
         .eq('user_id', userId)
         .in('status', [COURSE_STATUS.ADMIN, COURSE_STATUS.TEACHER, COURSE_STATUS.TUTOR])
         .ilike('course.name', `%${query}%`)
-    processError(error)
-    return {data}
+    let {data: data2, error: error2} = await supabase
+        .from('courses')
+        .select(`
+                id,
+                name
+                `)
+        .eq('created_by', userId)
+        .ilike('name', `%${query}%`)
+    data1.forEach(elem=>elem=elem.course)
+    processError(error1)
+    processError(error2)
+    console.log([...data1, ...data2])
+    return {
+        data: [...data1, ...data2]
+    }
 }
 export const fetchMyCourses = async function (userId) {
-
-    let {data, error} = await supabase
+    let {data: data1, error: error1} = await supabase
         .from('courses')
         .select(`
                 id,
@@ -27,13 +42,31 @@ export const fetchMyCourses = async function (userId) {
                     id,
                     fio
                 ),
-                courses_users (
+                courses_users!inner (
                     user_id
                 )
                 `)
         .eq('courses_users.user_id', userId)
-    processError(error)
-    return {data}
+    let {data: data2, error: error2} = await supabase
+        .from('courses')
+        .select(`
+                id,
+                name,
+                short_description,
+                start_date,
+                end_date,
+                created_by (
+                    id,
+                    fio
+                )
+                `)
+        .eq('created_by', userId)
+    processError(error1)
+    processError(error2)
+    console.log([...data1, ...data2])
+    return {
+        data: [...data1, ...data2]
+    }
 }
 export const fetchCourseInfo = async function (courseId) {
     let {data, error} = await supabase

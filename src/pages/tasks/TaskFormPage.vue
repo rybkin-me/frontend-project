@@ -91,9 +91,9 @@
             >
               <el-option
                   v-for="item in coursesOptions"
-                  :key="item.course.id"
-                  :label="item.course.name"
-                  :value="item.course.id"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
               />
             </el-select>
           </el-form-item>
