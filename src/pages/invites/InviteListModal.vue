@@ -13,7 +13,6 @@
         table-layout="auto"
     >
       <el-table-column label="Название" prop="name"/>
-      <el-table-column label="Использована" prop="times_used"/>
       <el-table-column label="Макс. польз." prop="max_users"/>
       <el-table-column label="Дата создания">
         <template #default="scope">
@@ -30,7 +29,7 @@
       <el-table-column label="Отозвана" prop="revoked"/>
       <el-table-column label="Действия">
         <template #default="scope">
-          <el-button type="primary" @click="copyInvite(scope.row.id)">
+          <el-button type="primary" @click="copyInvite(scope.row.link)">
             <el-icon>
               <clipboard-document-icon/>
             </el-icon>
@@ -83,8 +82,8 @@ const revokeInvite = function (inviteId) {
   console.log(inviteId)
 }
 
-const copyInvite = function (inviteId) {
-  const link = `${location.protocol}//${location.host}/invite/${inviteId}`
+const copyInvite = function (inviteLink) {
+  const link = `${location.protocol}//${location.host}/#/invite/${inviteLink}`
   navigator.clipboard.writeText(link).then(function () {
     ElMessage({
       message: 'Скопировано',

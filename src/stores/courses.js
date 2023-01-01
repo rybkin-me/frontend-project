@@ -1,10 +1,19 @@
 import {defineStore} from 'pinia'
-import {createInvite, fetchCourseInfo, fetchMyCourses, upsertCourse} from "@/queries/courses";
+import {
+    acceptInvite,
+    createInvite,
+    fetchCourseInfo,
+    fetchInviteInfo,
+    fetchMyCourses,
+    upsertCourse
+} from "@/queries/courses";
+import {useUsersStore} from "@/stores/users";
 
 export const useCoursesStore = defineStore('courses', {
     state: () => ({
         courses: null,
         courseInfo: null,
+        inviteInfo: null,
         settings: {
             filters: {},
             dateFormatMode: 'absolute',
@@ -55,6 +64,9 @@ export const useCoursesStore = defineStore('courses', {
         resetCourseInfo() {
             this.courseInfo = null
         },
+        resetInviteInfo() {
+            this.inviteInfo = null
+        },
         async fetchCourses() {
             const usersStore = useUsersStore();
             const {data} = await fetchMyCourses(usersStore.userId)
@@ -69,6 +81,18 @@ export const useCoursesStore = defineStore('courses', {
         },
         async createInvite(formData) {
             await createInvite(formData)
+        },
+        async fetchInviteInfo(inviteLink) {
+            const {data} = await fetchInviteInfo(inviteLink)
+            this.inviteInfo = data
+        },
+        async acceptInvite() {
+            const usersStore = useUsersStore();
+            await acceptInvite(
+                this.inviteInfo.id,
+                usersStore.userId,
+                this.inviteInfo.course.id
+            )
         }
     },
 })

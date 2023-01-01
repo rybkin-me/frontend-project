@@ -107,7 +107,7 @@ export const fetchCourseInfo = async function (courseId) {
                     name,
                     revoked,
                     max_users,
-                    times_used,
+                    link,
                     created_at,
                     created_by (
                         fio
@@ -115,7 +115,7 @@ export const fetchCourseInfo = async function (courseId) {
                 )
                 `)
         .eq('id', courseId)
-        .single()
+        .maybeSingle()
     processError(error)
     return {data}
 }
@@ -134,6 +134,38 @@ export const createInvite = async function (formData) {
         .select()
     processError(error)
     return {data}
-
-    // maxUsers, course_id
+}
+export const fetchInviteInfo = async function (inviteLink) {
+    let {data, error} = await supabase
+        .from('courses_invites')
+        .select(`
+            id,
+            creator:created_by (
+                fio
+            ),
+            course:course_id (
+                id,
+                name,
+                short_description
+            ),
+            courses_users (
+                user_id
+            )
+         `)
+        .eq('link', inviteLink)
+        .maybeSingle()
+    processError(error)
+    return {data}
+}
+export const acceptInvite = async function (inviteId, userId, courseId) {
+    let {data, error} = await supabase
+        .from('courses_users')
+        .insert({
+            course_id: courseId,
+            user_id: userId,
+            invite_id: inviteId
+        })
+        .select()
+    processError(error)
+    return {data}
 }

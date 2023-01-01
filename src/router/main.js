@@ -7,6 +7,7 @@ const routes = [
     {
         path: '/',
         component: HomePage,
+        name: 'homePage',
         meta: {
             sidebar: true,
             sidebarIndex: 'home'
