@@ -3,7 +3,7 @@
     <el-header>
       <main-header/>
     </el-header>
-    <el-container>
+    <el-container v-if="usersStore.isLoggedIn && !loading">
       <el-aside v-if="route.meta.sidebar" width="200px">
         <main-sidebar/>
       </el-aside>
@@ -11,7 +11,7 @@
         <router-view/>
       </el-main>
     </el-container>
-    <auth-modal :open-auth-modal="!userStore.isLoggedIn && !loading"/>
+    <auth-modal :open-auth-modal="!usersStore.isLoggedIn && !loading"/>
   </el-container>
 </template>
 
@@ -23,13 +23,13 @@ import {onMounted, ref} from 'vue'
 import MainSidebar from "@/components/MainSidebar";
 import {useRoute} from "vue-router";
 
-const userStore = useUsersStore()
+const usersStore = useUsersStore()
 const route = useRoute()
 
 const loading = ref(true)
 
 onMounted(() => {
-  userStore.initializeAuth().then(() => {
+  usersStore.initializeAuth().then(() => {
     loading.value = false
   })
 })

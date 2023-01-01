@@ -45,7 +45,7 @@ export const useUsersStore = defineStore('users', {
                 if (data.length === 0) {
                     this.userdata = null
                 } else {
-                    this.userdata = data[0]
+                    this.userdata = data
                     i18n.global.locale.value = LOCALES[this.userdata.locale]
                     moment.locale(LOCALES[this.userdata.locale])
                 }
