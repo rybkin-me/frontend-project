@@ -56,7 +56,8 @@ export const useCoursesStore = defineStore('courses', {
             this.courseInfo = null
         },
         async fetchCourses() {
-            const {data} = await fetchMyCourses()
+            const usersStore = useUsersStore();
+            const {data} = await fetchMyCourses(usersStore.userId)
             this.courses = data
         },
         async fetchCourseInfo(courseId) {

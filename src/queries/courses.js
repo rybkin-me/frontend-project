@@ -13,7 +13,8 @@ export const fetchAdminCourses = async function (query, userId) {
     processError(error)
     return {data}
 }
-export const fetchMyCourses = async function () {
+export const fetchMyCourses = async function (userId) {
+
     let {data, error} = await supabase
         .from('courses')
         .select(`
@@ -25,8 +26,12 @@ export const fetchMyCourses = async function () {
                 created_by (
                     id,
                     fio
+                ),
+                courses_users (
+                    user_id
                 )
                 `)
+        .eq('courses_users.user_id', userId)
     processError(error)
     return {data}
 }
