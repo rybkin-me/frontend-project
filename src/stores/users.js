@@ -30,8 +30,10 @@ export const useUsersStore = defineStore('users', {
     },
     actions: {
         async initializeAuth() {
+            const {data} = await getSession()
+            await this.setSession(data.session)
+            await this.fetchUserData()
             await setAuthStateChangeListener(this.setSession, this.fetchUserData)
-            await getSession()
         },
         async setSession(session) {
             this.session = session
