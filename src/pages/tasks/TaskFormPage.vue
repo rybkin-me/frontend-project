@@ -109,6 +109,7 @@ import {reactive, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useTasksStore} from "@/stores/tasks";
 import {fetchAdminCourses} from "@/queries/courses";
+import {useUsersStore} from "@/stores/users";
 
 const router = useRouter()
 const route = useRoute()
@@ -187,10 +188,11 @@ const shortcuts = [
 
 const coursesOptions = ref([])
 const coursesLoading = ref(false)
+const usersStore = useUsersStore();
 const fetchAdminCoursesWrapper = (query) => {
   if (query) {
     coursesLoading.value = true
-    fetchAdminCourses(query).then(({data}) => {
+    fetchAdminCourses(query, usersStore.userId).then(({data}) => {
       coursesOptions.value = data
       coursesLoading.value = false
     })

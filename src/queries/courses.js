@@ -1,15 +1,13 @@
 import {supabase} from "@/supabase";
 import {COURSE_STATUS, processError} from "@/helpers";
-import {useUsersStore} from "@/stores/users";
 
-export const fetchAdminCourses = async function (query) {
-    const usersStore = useUsersStore();
+export const fetchAdminCourses = async function (query, userId) {
     let {data, error} = await supabase
         .from('courses_users')
         .select(`
                     course:course_id!inner (*)
                 `)
-        .eq('user_id', usersStore.userId)
+        .eq('user_id', userId)
         .in('status', [COURSE_STATUS.ADMIN, COURSE_STATUS.TEACHER, COURSE_STATUS.TUTOR])
         .ilike('course.name', `%${query}%`)
     processError(error)
