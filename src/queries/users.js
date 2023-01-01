@@ -18,7 +18,7 @@ export const fetchUserData = async function (userId) {
         .from('users')
         .select()
         .eq('auth_id', userId)
-        .single()
+        .maybeSingle()
     processError(error)
     return {data}
 }

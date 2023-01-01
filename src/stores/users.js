@@ -41,13 +41,9 @@ export const useUsersStore = defineStore('users', {
         async fetchUserData() {
             if (this.session !== null) {
                 let {data} = await fetchUserData(this.session.user.id)
-                if (data.length === 0) {
-                    this.userdata = null
-                } else {
-                    this.userdata = data
-                    i18n.global.locale.value = LOCALES[this.userdata.locale]
-                    moment.locale(LOCALES[this.userdata.locale])
-                }
+                this.userdata = data
+                i18n.global.locale.value = LOCALES[this.userdata.locale]
+                moment.locale(LOCALES[this.userdata.locale])
             }
         },
         async signIn(formData) {
@@ -56,10 +52,8 @@ export const useUsersStore = defineStore('users', {
         },
         async signUp(formData) {
             const {email, password, fio} = formData
-            const {data: authData, error: authError} = await signUp(email, password)
-            if (authError === null) {
-                await insertUserdata(fio, authData.user.id)
-            }
+            const {data} = await signUp(email, password)
+            await insertUserdata(fio, data.user.id)
         },
         async signOut() {
             await signOut()
