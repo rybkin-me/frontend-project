@@ -25,6 +25,13 @@
           }}
         </span>
     </el-descriptions-item>
+    <el-descriptions-item label="Создатель">
+        <span>
+          {{
+          course.created_by.fio
+          }}
+        </span>
+    </el-descriptions-item>
   </el-descriptions>
 </template>
 
