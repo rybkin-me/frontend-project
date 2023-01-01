@@ -19,13 +19,10 @@ export const useUsersStore = defineStore('users', {
     }),
     getters: {
         isLoggedIn(state) {
-            return state.session !== null
-        },
-        isUserdataSet(state) {
             return state.userdata !== null
         },
         userId(state) {
-            if (this.isUserdataSet) {
+            if (this.isLoggedIn) {
                 return state.userdata.id
             }
             return null
