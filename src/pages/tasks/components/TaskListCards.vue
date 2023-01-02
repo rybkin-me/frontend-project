@@ -9,6 +9,8 @@
             v-for="task in tasksList"
             :key="task.id"
             :task="task"
+            class="card-link"
+            @click="redirectToInfo(task)"
         />
       </el-space>
     </div>
@@ -18,14 +20,20 @@
 
 <script setup>
 import TaskCard from "@/pages/tasks/components/TaskCard";
-import {defineProps, toRefs, watch} from "vue";
+import {defineProps, toRefs} from "vue";
+import {useRouter} from "vue-router";
 
 const props = defineProps(['tasksList', 'loading'])
 const {tasksList, loading} = toRefs(props)
+const router = useRouter()
 
-watch(() => props.loading, () => loading.value = props.loading)
-
+const redirectToInfo = (task) => {
+  router.push({name: 'taskInfo', params: {taskId: task.id}})
+}
 </script>
 
 <style scoped>
+.card-link {
+  cursor: pointer
+}
 </style>

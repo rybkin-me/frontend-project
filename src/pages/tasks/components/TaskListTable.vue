@@ -3,9 +3,11 @@
   <el-table
       v-loading="loading"
       :data="tasksList"
+      row-class-name="tableRow"
       stripe
       style="width: 100%"
       table-layout="auto"
+      @row-click="redirectToInfo"
   >
     <el-table-column label="Название" prop="name"/>
     <el-table-column label="Предмет" prop="course.name"/>
@@ -73,15 +75,23 @@ import {useTasksStore} from "@/stores/tasks";
 import {ExclamationCircleIcon, ShieldCheckIcon} from "@heroicons/vue/20/solid";
 import {defineProps, toRefs} from "vue";
 import {checkDateBefore, formatDate} from "@/helpers";
+import {useRouter} from "vue-router";
 
 const tasksStore = useTasksStore()
 const props = defineProps(['tasksList', 'loading'])
 const {tasksList, loading} = toRefs(props)
+const router = useRouter()
 
+const redirectToInfo = (row) => {
+  router.push({name: 'taskInfo', params: {taskId: row.id}})
+}
 </script>
 
 <style scoped>
 .warning {
   color: var(--el-color-danger)
+}
+.tableRow {
+  cursor: pointer
 }
 </style>

@@ -1,9 +1,10 @@
 import {defineStore} from 'pinia'
-import {fetchMyTasks, upsertTask} from "@/queries/tasks";
+import {fetchMyTasks, fetchTaskInfo, upsertTask} from "@/queries/tasks";
 
 export const useTasksStore = defineStore('tasks', {
     state: () => ({
         tasks: null,
+        taskInfo: null,
         settings: {
             filters: {},
             dateFormatMode: 'absolute',
@@ -51,9 +52,16 @@ export const useTasksStore = defineStore('tasks', {
         resetListRefresh() {
             this.settings.refreshList = false
         },
+        resetTaskInfo() {
+            this.taskInfo = null
+        },
         async fetchTasks() {
             let {data} = await fetchMyTasks()
             this.tasks = data
+        },
+        async fetchTaskInfo(taskId) {
+            let {data} = await fetchTaskInfo(taskId)
+            this.taskInfo = data
         },
         async upsertTask(formData) {
             await upsertTask(formData)

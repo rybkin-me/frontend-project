@@ -27,3 +27,25 @@ export const upsertTask = async function (formData) {
     processError(error)
     return {data}
 }
+export const fetchTaskInfo = async function (taskId) {
+    const {data, error} = await supabase
+        .from('tasks')
+        .select(`
+                id,
+                name,
+                description,
+                punishment,
+                is_mandatory,
+                is_protectable,
+                deadline_at,
+                protection_deadline_at,
+                course:course_id (
+                    id,
+                    name
+                )
+                `)
+        .eq('id', taskId)
+        .maybeSingle()
+    processError(error)
+    return {data}
+}
