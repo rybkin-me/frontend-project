@@ -49,16 +49,17 @@ export const useUsersStore = defineStore('users', {
         async signIn(formData) {
             const {email, password} = formData
             await signIn(email, password)
+            await this.fetchUserData()
         },
         async signUp(formData) {
             const {email, password, fio} = formData
             const {data} = await signUp(email, password)
             await insertUserdata(fio, data.user.id)
+            await this.fetchUserData()
         },
         async signOut() {
             await signOut()
-            this.userdata = null
-            this.session = null
+            location.reload()
         }
     },
 })

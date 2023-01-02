@@ -6,7 +6,7 @@ export const setAuthStateChangeListener = async function (setSession, fetchUserD
     supabase.auth.onAuthStateChange(async (event, _session) => {
         await setSession(_session)
         console.debug('Session updated')
-        if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+        if (event === 'USER_UPDATED') {
             console.debug(event)
             await fetchUserData()
         }
