@@ -32,34 +32,7 @@
         </el-space>
       </div>
     </template>
-
-    <el-descriptions :column="1">
-      <el-descriptions-item label="Предмет">
-        <span>
-          {{ task.course.name }}
-        </span>
-      </el-descriptions-item>
-      <el-descriptions-item label="Дедлайн сдачи">
-        <span :class="{'warning': checkDateBefore(task.deadline_at)}">
-          {{
-            formatDate(
-                task.deadline_at,
-                tasksStore.dateFormatMode === 'relative'
-            )
-          }}
-        </span>
-      </el-descriptions-item>
-      <el-descriptions-item label="Дедлайн защиты">
-        <span :class="{'warning': checkDateBefore(task.protection_deadline_at)}">
-          {{
-            formatDate(
-                task.protection_deadline_at,
-                tasksStore.dateFormatMode === 'relative'
-            )
-          }}
-        </span>
-      </el-descriptions-item>
-    </el-descriptions>
+    <task-descriptions :task="task"/>
   </el-card>
 </template>
 
@@ -67,14 +40,12 @@
 import {ExclamationCircleIcon, ShieldCheckIcon} from "@heroicons/vue/20/solid";
 import {defineProps, h, ref} from "vue";
 import {ElDivider} from "element-plus";
-import {useTasksStore} from "@/stores/tasks";
-import {formatDate, checkDateBefore} from "@/helpers";
+import TaskDescriptions from "@/pages/tasks/components/TaskDescriptions";
 
 const props = defineProps(['task'])
 const task = ref(props.task)
 const spacer = h(ElDivider, {direction: 'vertical'})
 
-const tasksStore = useTasksStore()
 </script>
 
 <style scoped>
