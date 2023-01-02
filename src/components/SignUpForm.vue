@@ -51,10 +51,10 @@ const formData = reactive({
 
 const signUp = async () => {
   if (!formDataRef.value) return
-  await formDataRef.value.validate((valid, fields) => {
+  await formDataRef.value.validate(async (valid, fields) => {
     if (valid) {
       emit('setLoading')
-      userStore.signUp(formData)
+      await userStore.signUp(formData)
       formData.value = {
         email: '',
         fio: '',
