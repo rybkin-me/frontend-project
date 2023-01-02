@@ -53,6 +53,7 @@ const redirectToHomepage = async () => {
 }
 
 const acceptInvite = async () => {
+  loading.value = true
   await coursesStore.acceptInvite()
   await router.push({'name': 'courseInfo', 'params': {'courseId': coursesStore.inviteInfo.course.id}})
 }
