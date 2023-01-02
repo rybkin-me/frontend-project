@@ -1,6 +1,5 @@
 <template>
   <el-form
-      v-loading="loading"
       :model="formData"
       :rules="rules"
       label-position="top"
@@ -24,24 +23,22 @@
 </template>
 
 <script setup>
-
-import {computed, reactive, ref} from "vue";
+import {computed, defineEmits, reactive} from "vue";
 import {useI18n} from "vue-i18n";
 import {useUsersStore} from "@/stores/users";
 
 const {t} = useI18n()
 const userStore = useUsersStore()
-
-const loading = ref(false)
+const emit = defineEmits(['setLoading', 'resetLoading'])
 
 const signIn = async () => {
-  loading.value = true
+  emit('setLoading')
   await userStore.signIn(formData)
-  formData.value = reactive({
+  formData.value = {
     email: '',
     password: '',
-  })
-  loading.value = false
+  }
+  emit('resetLoading')
 }
 
 const formData = reactive({

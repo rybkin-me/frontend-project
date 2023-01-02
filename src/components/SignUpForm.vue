@@ -1,7 +1,6 @@
 <template>
   <el-form
       ref="formDataRef"
-      v-loading="loading"
       :hide-required-asterisk="true"
       :model="formData"
       :rules="rules"
@@ -33,14 +32,14 @@
 
 <script setup>
 
-import {computed, reactive, ref} from "vue";
+import {computed, defineEmits, reactive, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useUsersStore} from "@/stores/users";
 
 const {t} = useI18n()
 const userStore = useUsersStore()
 
-const loading = ref(false)
+const emit = defineEmits(['setLoading', 'resetLoading'])
 
 const formDataRef = ref()
 const formData = reactive({
@@ -54,15 +53,15 @@ const signUp = async () => {
   if (!formDataRef.value) return
   await formDataRef.value.validate((valid, fields) => {
     if (valid) {
-      loading.value = true
+      emit('setLoading')
       userStore.signUp(formData)
-      formData.value = reactive({
+      formData.value = {
         email: '',
         fio: '',
         password: '',
         repeatPassword: '',
-      })
-      loading.value = false
+      }
+      emit('resetLoading')
     } else {
       console.log('error submit!', fields)
     }

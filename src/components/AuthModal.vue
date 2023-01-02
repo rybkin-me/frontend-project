@@ -22,14 +22,15 @@
         />
       </div>
     </template>
-    <el-tabs v-model="activeTabName" class="auth-modal-body">
+    <el-tabs v-model="activeTabName" class="auth-modal-body"
+             v-loading="loading">
       <el-tab-pane :label="t('auth.signIn')" name="signIn">
         <div>
-          <sign-in-form/>
+          <sign-in-form @set-loading="loading=true" @reset-loading="loading=false"/>
         </div>
       </el-tab-pane>
       <el-tab-pane :label="t('auth.signUp')" name="signUp">
-        <sign-up-form/>
+        <sign-up-form @set-loading="loading=true" @reset-loading="loading=false"/>
       </el-tab-pane>
     </el-tabs>
   </el-dialog>
@@ -45,7 +46,7 @@ const {t} = useI18n()
 
 const props = defineProps(['openAuthModal'])
 const {openAuthModal} = toRefs(props)
-
+const loading = ref(false)
 const activeTabName = ref('signIn')
 
 
