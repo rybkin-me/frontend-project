@@ -1,7 +1,7 @@
 <template>
   <el-popover style="width: fit-content" placement="bottom" trigger="click">
     <template #reference>
-      <el-button :icon="FunnelIcon" disabled/>
+      <el-button :icon="FunnelIcon" disabled title="Фильтры"/>
     </template>
 
   </el-popover>

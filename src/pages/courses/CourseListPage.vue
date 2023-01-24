@@ -12,8 +12,8 @@
               defaultOrder="asc"
           />
           <list-popover-settings :useStore="useCoursesStore"/>
-          <el-button :icon="ArrowPathIcon" @click="fetchCourses()"/>
-          <el-button type="primary" @click="redirectToCourseForm()">
+          <el-button :icon="ArrowPathIcon" @click="fetchCourses()" title="Обновить список"/>
+          <el-button type="primary" @click="redirectToCourseForm()" title="Создать курс">
             Создать
           </el-button>
         </el-space>

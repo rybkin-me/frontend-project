@@ -11,6 +11,7 @@
         :key="route.path"
         :index="route.index"
         @click="redirectToPage(route.path)"
+        :name="t(route.name)"
     >
       <el-icon>
         <component :is="route.icon"/>

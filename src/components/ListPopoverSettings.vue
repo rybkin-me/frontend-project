@@ -1,7 +1,7 @@
 <template>
   <el-popover style="width: fit-content" placement="bottom" trigger="click">
     <template #reference>
-      <el-button :icon="Cog6ToothIcon"/>
+      <el-button :icon="Cog6ToothIcon" title="Настройки списка"/>
     </template>
     <el-form
         label-position="top"
@@ -29,7 +29,6 @@
       </el-form-item>
     </el-form>
   </el-popover>
-
 </template>
 
 <script setup>

@@ -8,7 +8,12 @@
 
     <el-menu-item>
       <template #title>
-        Example
+        <el-switch
+            v-model="isDark"
+            active-text="Dark"
+            inactive-text="Light"
+            size="large"
+        />
       </template>
     </el-menu-item>
     <el-sub-menu index="account">
@@ -16,6 +21,7 @@
         <el-avatar :size="30">
           <img
               src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"
+              alt="Аватар пользователя"
           />
         </el-avatar>
       </template>
@@ -37,9 +43,14 @@
 <script setup>
 import {useI18n} from "vue-i18n";
 import {useUsersStore} from "@/stores/users";
+import { useDark } from '@vueuse/core'
+import {ref} from "vue";
+
 
 const {t} = useI18n()
 const userStore = useUsersStore()
+const isDark = ref(useDark())
+// const toggleDark = useToggle(isDark)
 
 
 </script>

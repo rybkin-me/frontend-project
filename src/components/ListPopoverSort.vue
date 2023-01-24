@@ -1,7 +1,7 @@
 <template>
   <el-popover style="width: fit-content" placement="bottom" trigger="click">
     <template #reference>
-      <el-button :icon="ArrowsUpDownIcon"/>
+      <el-button :icon="ArrowsUpDownIcon" title="Опции сортировки"/>
     </template>
     <el-space direction="vertical">
       <el-radio-group v-model="listSortKey" class="ml-4">
